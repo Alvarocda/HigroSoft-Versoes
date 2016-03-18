@@ -4,20 +4,15 @@
  * and open the template in the editor.
  */
 package view;
-import Controller.ThreadsPrincipal;
 import DAO.ConsomeArduinoDAO;
 import java.awt.Color;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
-public class Principal extends javax.swing.JFrame implements Runnable {
-    ThreadsPrincipal threads = new ThreadsPrincipal();
-    
+public class Principal extends javax.swing.JFrame {
+
     ConfirmaSaida Saida = new ConfirmaSaida();
-    
     public Principal() {
         initComponents();
         
@@ -360,9 +355,6 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_BtnSobreActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-             
-    }//GEN-LAST:event_jButton1ActionPerformed
-    public void AtualizaView(){
         try {
         ConsomeArduinoDAO Consome = new ConsomeArduinoDAO();
         BarraUmidadeSolo.setValue((int) Math.round(Consome.getUmidadeSolo()));
@@ -371,18 +363,15 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         LabelTemperatura.setText(Consome.getTemperatura()+"ºC");
         LabelUmidadeAmbiente.setText(Consome.getUmidadeSolo()+"ºC");
         LabelUmidadeSolo.setText(Consome.getUmidadeSolo()+"ºC");
-        Thread.sleep(10000);
         
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    public void AbreThread(){
+            
         
-    }
-    
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -415,7 +404,9 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {                
                Principal principal = new Principal();
-               principal.setVisible(true);                      
+               principal.setVisible(true);
+               
+                             
             }
         });
     }  
@@ -453,9 +444,4 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel jPanel4;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
