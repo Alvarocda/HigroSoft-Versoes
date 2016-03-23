@@ -4,18 +4,21 @@
  * and open the template in the editor.
  */
 package view;
+
 import DAO.ConsomeArduinoDAO;
 import java.awt.Color;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 
 public class Principal extends javax.swing.JFrame {
 
     ConfirmaSaida Saida = new ConfirmaSaida();
+
     public Principal() {
         initComponents();
-        
+        new updateView().start();
     }
 
     /**
@@ -44,7 +47,6 @@ public class Principal extends javax.swing.JFrame {
         BtnAddUsuario = new javax.swing.JButton();
         BtnSobre = new javax.swing.JButton();
         BtnSair = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         LabelUmid1 = new javax.swing.JLabel();
@@ -177,7 +179,7 @@ public class Principal extends javax.swing.JFrame {
         BtnAddUsuario.setBackground(new java.awt.Color(255, 255, 255));
         BtnAddUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/Add User-48.png"))); // NOI18N
         BtnAddUsuario.setText("Novo Usuario");
-        BtnAddUsuario.setToolTipText("Clique para acessar configurações avançadas do Software");
+        BtnAddUsuario.setToolTipText("Clique para adicionar novos Usuarios");
         BtnAddUsuario.setBorderPainted(false);
         BtnAddUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnAddUsuario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -210,13 +212,6 @@ public class Principal extends javax.swing.JFrame {
         BtnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnSairActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Teste");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             }
         });
 
@@ -278,41 +273,35 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(BtnAddUsuario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BtnSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(BtnAddUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(BtnSobre)
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnSair, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnAddUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton1)))
+                    .addComponent(BtnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnAddUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
@@ -343,7 +332,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnSairActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
+
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -354,29 +343,9 @@ public class Principal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Desenvolvido por:\nÁlvaro Claro\nRodrigo Paiva\nHigroSoft 2016 ", "Sobre", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_BtnSobreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-        ConsomeArduinoDAO Consome = new ConsomeArduinoDAO();
-        BarraUmidadeSolo.setValue((int) Math.round(Consome.getUmidadeSolo()));
-        BarraTemperatura.setValue((int) Math.round(Consome.getTemperatura()));
-        BarraUmidade.setValue((int) Math.round(Consome.getUmidadeSolo()));
-        LabelTemperatura.setText(Consome.getTemperatura()+"ºC");
-        LabelUmidadeAmbiente.setText(Consome.getUmidadeSolo()+"ºC");
-        LabelUmidadeSolo.setText(Consome.getUmidadeSolo()+"ºC");
-        
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-            
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String args[]) {
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -402,21 +371,13 @@ public class Principal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {                
-               Principal principal = new Principal();
-               principal.setVisible(true);
-               
-                             
+            public void run() {
+                Principal principal = new Principal();
+                principal.setVisible(true);
             }
         });
-    }  
-   
-    
-    
-    
-    
+    }
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar BarraTemperatura;
@@ -431,7 +392,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel LabelUmid1;
     private javax.swing.JLabel LabelUmidadeAmbiente;
     private javax.swing.JLabel LabelUmidadeSolo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -444,4 +404,26 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
+    public class updateView extends Thread {
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(5000);
+                    ConsomeArduinoDAO Consome = new ConsomeArduinoDAO();
+                    BarraUmidadeSolo.setValue((int) Math.round(Consome.getUmidadeSolo()));
+                    BarraTemperatura.setValue((int) Math.round(Consome.getTemperatura()));
+                    BarraUmidade.setValue((int) Math.round(Consome.getUmidadeSolo()));
+                    LabelTemperatura.setText(Consome.getTemperatura() + "ºC");
+                    LabelUmidadeAmbiente.setText(Consome.getUmidadeSolo() + "ºC");
+                    LabelUmidadeSolo.setText(Consome.getUmidadeSolo() + "ºC");
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+    };
 }

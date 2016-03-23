@@ -9,6 +9,7 @@ import static java.lang.Integer.parseInt;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import javax.swing.JOptionPane;
 
 public class ConsomeArduinoDAO {
     private final String Endereco = "http://192.168.0.247";  
@@ -49,10 +50,10 @@ public class ConsomeArduinoDAO {
               }
               
          catch (MalformedURLException e) { 
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null, "Erro ao conectar-se com o Arduino");
          } 
          catch (IOException e) {   
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao conectar-se com o Arduino");
          }                                                                           
          
     }

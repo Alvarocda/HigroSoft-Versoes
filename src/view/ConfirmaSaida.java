@@ -5,6 +5,8 @@
  */
 package view;
 
+import view.Principal.updateView;
+
 /**
  *
  * @author Alvaro
@@ -108,11 +110,14 @@ public class ConfirmaSaida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnNaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNaoSairActionPerformed
+          
         this.dispose();        
     }//GEN-LAST:event_BtnNaoSairActionPerformed
 
     private void BtnSimSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimSairActionPerformed
         System.exit(0);
+        
+        
     }//GEN-LAST:event_BtnSimSairActionPerformed
 
     /**
@@ -149,6 +154,7 @@ public class ConfirmaSaida extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnNaoSair;
