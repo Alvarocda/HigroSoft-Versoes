@@ -112,6 +112,7 @@ public class ConsomeArduinoDAO {
 
     public int getStatus() {
         return this.StatusConexao;
+        
     }
 
     public void DispersaAgua() throws MalformedURLException, IOException {
