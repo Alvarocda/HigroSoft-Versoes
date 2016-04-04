@@ -35,8 +35,8 @@ public class ControleManual extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        BtnDispersaAdubo = new javax.swing.JButton();
+        BtnDispersaAgua = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
@@ -45,24 +45,24 @@ public class ControleManual extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/nature.png"))); // NOI18N
-        jButton1.setText("Dispersar Adubo");
-        jButton1.setBorderPainted(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnDispersaAdubo.setBackground(new java.awt.Color(255, 255, 255));
+        BtnDispersaAdubo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/nature.png"))); // NOI18N
+        BtnDispersaAdubo.setText("Dispersar Adubo");
+        BtnDispersaAdubo.setBorderPainted(false);
+        BtnDispersaAdubo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnDispersaAdubo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        BtnDispersaAdubo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/spray.png"))); // NOI18N
-        jButton2.setText("Dispersar Agua");
-        jButton2.setBorderPainted(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        BtnDispersaAgua.setBackground(new java.awt.Color(255, 255, 255));
+        BtnDispersaAgua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/spray.png"))); // NOI18N
+        BtnDispersaAgua.setText("Dispersar Agua");
+        BtnDispersaAgua.setBorderPainted(false);
+        BtnDispersaAgua.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnDispersaAgua.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        BtnDispersaAgua.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnDispersaAgua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BtnDispersaAguaActionPerformed(evt);
             }
         });
 
@@ -82,11 +82,11 @@ public class ControleManual extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
+                    .addComponent(BtnDispersaAgua)
                     .addComponent(jButton4))
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                    .addComponent(BtnDispersaAdubo)
                     .addComponent(jButton3))
                 .addContainerGap(124, Short.MAX_VALUE))
         );
@@ -95,8 +95,8 @@ public class ControleManual extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(99, 99, 99)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(BtnDispersaAdubo)
+                    .addComponent(BtnDispersaAgua))
                 .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
@@ -119,13 +119,9 @@ public class ControleManual extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            new java.net.URI( "http://192.168.0.100/Agua/On");
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(ControleManual.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void BtnDispersaAguaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDispersaAguaActionPerformed
+        
+    }//GEN-LAST:event_BtnDispersaAguaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
@@ -171,8 +167,8 @@ public class ControleManual extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton BtnDispersaAdubo;
+    private javax.swing.JButton BtnDispersaAgua;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;

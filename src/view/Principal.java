@@ -50,9 +50,8 @@ public class Principal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         LabelStatus = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        BtnControleManual = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("HigroSoft");
         setBackground(new java.awt.Color(255, 255, 255));
         setIconImage(getIconImage());
@@ -268,16 +267,16 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel6.setText("Status:");
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/Settings-48.png"))); // NOI18N
-        jButton1.setText("Controle Manual");
-        jButton1.setBorderPainted(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BtnControleManual.setBackground(new java.awt.Color(255, 255, 255));
+        BtnControleManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/Settings-48.png"))); // NOI18N
+        BtnControleManual.setText("Controle Manual");
+        BtnControleManual.setBorderPainted(false);
+        BtnControleManual.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnControleManual.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        BtnControleManual.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnControleManual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BtnControleManualActionPerformed(evt);
             }
         });
 
@@ -300,7 +299,7 @@ public class Principal extends javax.swing.JFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(BtnSobre)
                                 .addGap(30, 30, 30)
-                                .addComponent(jButton1)
+                                .addComponent(BtnControleManual)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(BtnSair))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -323,11 +322,11 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(BtnAddUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BtnSobre, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
                     .addComponent(BtnSair, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BtnControleManual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 205, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -377,9 +376,9 @@ public class Principal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Desenvolvido por:\nÁlvaro Claro\nRodrigo Paiva\nHigroSoft 2016 ", "Sobre", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_BtnSobreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BtnControleManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnControleManualActionPerformed
         new ControleManual().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BtnControleManualActionPerformed
 
    
     public static void main(String args[]) {
@@ -422,6 +421,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JProgressBar BarraUmidade;
     private javax.swing.JProgressBar BarraUmidadeSolo;
     private javax.swing.JButton BtnAddUsuario;
+    private javax.swing.JButton BtnControleManual;
     private javax.swing.JButton BtnSair;
     private javax.swing.JButton BtnSobre;
     private javax.swing.JLabel LabelStatus;
@@ -431,7 +431,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel LabelUmid1;
     private javax.swing.JLabel LabelUmidadeAmbiente;
     private javax.swing.JLabel LabelUmidadeSolo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -459,11 +458,15 @@ public class Principal extends javax.swing.JFrame {
                     LabelUmidadeAmbiente.setText(Consome.getUmidadeAmbiente() + "%");
                     LabelUmidadeSolo.setText(Consome.getUmidadeSolo() + "%");
                     if(Consome.getStatus() == 1){
+                        BtnControleManual.isEnabled();
                         LabelStatus.setForeground(Color.GREEN);
                         LabelStatus.setText("OK");
+                        
                     }else if(Consome.getStatus() == 2){
+                        BtnControleManual.disable();
                         LabelStatus.setForeground(Color.red);
                         LabelStatus.setText("Erro ao comunicar-se com o Arduino");
+                        
                     }
                     if(Consome.getLogArduino() == 1){
                         LabelStatus.setForeground(Color.red);

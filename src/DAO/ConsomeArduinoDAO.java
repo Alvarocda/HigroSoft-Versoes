@@ -100,14 +100,17 @@ public class ConsomeArduinoDAO {
 
     public int getLogArduino() {
         return LogArduino;
+        
     }
 
     private void setLogArduino(int LogArduino) {
         this.LogArduino = LogArduino;
+        
     }
 
     public void setStatus(int Status) {
         this.StatusConexao = Status;
+        
     }
 
     public int getStatus() {
