@@ -27,7 +27,6 @@ public class UsuarioDAO {
     
     public void CriaNovoUsuario(String Email, String Senha)throws SQLException {        
         try{
-            RegistroUsuario Registro = new RegistroUsuario();
             Statement stmt = Conexao.Conecta().createStatement();
             String sql = "INSERT INTO usuario(email,senha) VALUES ('"+Email+"','"+Senha+"')";
             stmt.executeUpdate(sql);

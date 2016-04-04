@@ -1,4 +1,3 @@
-
 package DAO;
 
 import java.io.BufferedReader;
@@ -9,67 +8,68 @@ import static java.lang.Integer.parseInt;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import javax.swing.JOptionPane;
+
 
 public class ConsomeArduinoDAO {
-    private final String Endereco = "http://192.168.0.247";  
+
+    private final String Endereco = "http://192.168.0.100/";
     private double Temperatura;
     private double UmidadeAmbiente;
     private double UmidadeSolo;
     private int LogArduino;
-    
-    public ConsomeArduinoDAO() throws IOException{
+    private int StatusConexao;
+
+    public ConsomeArduinoDAO() throws IOException {
         this.IniciaAlimentacao();
     }
-    
-    
-    private void IniciaAlimentacao() throws MalformedURLException, IOException{
+
+    private void IniciaAlimentacao() throws MalformedURLException, IOException {
         try {
-         URL endereco = new URL(this.Endereco);
-         URLConnection conn = endereco.openConnection();
-                 try (BufferedReader xml = new BufferedReader(new InputStreamReader(
+            URL endereco = new URL(this.Endereco + "Sensores");
+            URLConnection conn = endereco.openConnection();
+            try (BufferedReader xml = new BufferedReader(new InputStreamReader(
                     conn.getInputStream()))) {
-                     try{
-                        xml.readLine();
-                        xml.readLine();
-                        xml.readLine();
-                        this.setTemperatura(parseDouble(xml.readLine()));                  
-                        xml.readLine();
-                        xml.readLine();
-                        this.setUmidadeAmbiente(parseDouble(xml.readLine()));
-                        xml.readLine();
-                        xml.readLine();
-                        this.setUmidadeSolo(parseDouble(xml.readLine()));
-                        xml.readLine();
-                        xml.readLine();
-                        this.setLogArduino(parseInt(xml.readLine()));                        
-                     }catch(Exception ex){
-                         
-                     }
-                 }
-              }
-              
-         catch (MalformedURLException e) { 
-             JOptionPane.showMessageDialog(null, "Erro ao conectar-se com o Arduino");
-         } 
-         catch (IOException e) {   
-            JOptionPane.showMessageDialog(null, "Erro ao conectar-se com o Arduino");
-         }                                                                           
-         
-    }
-    
-    public String DetectaErroArduino(){
-        if(this.getLogArduino() == 1){
-         return "Problemas com o DHT 22 Sensor de Temperatura";
+                try {
+                    xml.readLine();
+                    xml.readLine();
+                    xml.readLine();
+                    this.setTemperatura(parseDouble(xml.readLine()));
+                    xml.readLine();
+                    xml.readLine();
+                    this.setUmidadeAmbiente(parseDouble(xml.readLine()));
+                    xml.readLine();
+                    xml.readLine();
+                    this.setUmidadeSolo(parseDouble(xml.readLine()));
+                    xml.readLine();
+                    xml.readLine();
+                    this.setLogArduino(parseInt(xml.readLine()));
+                    this.setStatus(1);
+                } catch (Exception ex) {
+
+                }
+            }
+        } catch (MalformedURLException e) {
+            this.setStatus(2);
+            //JOptionPane.showMessageDialog(null, "Erro ao conectar-se com o Arduino");
+
+        } catch (IOException e) {
+            this.setStatus(2);
+            //JOptionPane.showMessageDialog(null, "Erro ao conectar-se com o Arduino");
+
         }
-        else if(this.getLogArduino() == 2){
+
+    }
+
+    /**public String DetectaErroArduino() {
+        if (this.getLogArduino() == 1) {
+            return "Problemas com o DHT 22 Sensor de Temperatura";
+        } else if (this.getLogArduino() == 2) {
             return "Erro no Sensor de Umidade de Solo";
+        } else if (this.getLogArduino() == 0) {
+            return "Leitura Realizada com Sucesso";
         }
-        else if(this.getLogArduino() == 0){
-         return "Leitura Realizada com Sucesso";
-         }
-        return "";        
-    }
+        return "";
+    }**/
 
     public double getTemperatura() {
         return Temperatura;
@@ -93,6 +93,9 @@ public class ConsomeArduinoDAO {
 
     private void setUmidadeSolo(double UmidadeSolo) {
         this.UmidadeSolo = UmidadeSolo;
+        if(this.UmidadeSolo < 100){
+            this.UmidadeSolo = 100;
+        }
     }
 
     public int getLogArduino() {
@@ -102,7 +105,24 @@ public class ConsomeArduinoDAO {
     private void setLogArduino(int LogArduino) {
         this.LogArduino = LogArduino;
     }
-    
-    
-  
+
+    public void setStatus(int Status) {
+        this.StatusConexao = Status;
+    }
+
+    public int getStatus() {
+        return this.StatusConexao;
+    }
+
+    public void DispersaAgua() throws MalformedURLException, IOException {
+        URL endereco = new URL(this.Endereco + "Agua/On");
+        URLConnection conn = endereco.openConnection();
+        //chmar Timer e fechar a dispersao de agua
+    }
+
+    public void DispersaAduno() throws MalformedURLException, IOException {
+        URL endereco = new URL(this.Endereco + "Adubo/On");
+        URLConnection conn = endereco.openConnection();
+        //chmar Timer e fechar a dispersao de agua
+    }
 }
