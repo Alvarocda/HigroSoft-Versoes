@@ -5,15 +5,12 @@
  */
 package view;
 
-import DAO.ConsomeArduinoDAO;
+import DAO.ControleIrrigacao;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -52,6 +49,11 @@ public class ControleManual extends javax.swing.JFrame {
         BtnDispersaAdubo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnDispersaAdubo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         BtnDispersaAdubo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnDispersaAdubo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnDispersaAduboActionPerformed(evt);
+            }
+        });
 
         BtnDispersaAgua.setBackground(new java.awt.Color(255, 255, 255));
         BtnDispersaAgua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/spray.png"))); // NOI18N
@@ -67,6 +69,11 @@ public class ControleManual extends javax.swing.JFrame {
         });
 
         jButton3.setText("Desliga adubo");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Desliga Agua");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -120,16 +127,40 @@ public class ControleManual extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnDispersaAguaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDispersaAguaActionPerformed
-        
+        ControleIrrigacao Controle = new ControleIrrigacao();
+        try {
+            Controle.AtivaDispersao("Agua", "/On");
+        } catch (IOException ex) {
+            Logger.getLogger(ControleManual.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnDispersaAguaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        ControleIrrigacao Controle = new ControleIrrigacao();
         try {
-            new java.net.URI( "http://192.168.0.100/Agua/Off");
-        } catch (URISyntaxException ex) {
+            Controle.AtivaDispersao("Agua", "/Off");
+        } catch (IOException ex) {
             Logger.getLogger(ControleManual.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void BtnDispersaAduboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDispersaAduboActionPerformed
+        ControleIrrigacao Controle = new ControleIrrigacao();
+        try {
+            Controle.AtivaDispersao("Adubo", "/On");
+        } catch (IOException ex) {
+            Logger.getLogger(ControleManual.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BtnDispersaAduboActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ControleIrrigacao Controle = new ControleIrrigacao();
+        try {
+            Controle.AtivaDispersao("Adubo", "/Off");
+        } catch (IOException ex) {
+            Logger.getLogger(ControleManual.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -93,7 +93,7 @@ public class ConsomeArduinoDAO {
 
     private void setUmidadeSolo(double UmidadeSolo) {
         this.UmidadeSolo = UmidadeSolo;
-        if(this.UmidadeSolo < 100){
+        if(this.UmidadeSolo > 100){
             this.UmidadeSolo = 100;
         }
     }
@@ -117,16 +117,5 @@ public class ConsomeArduinoDAO {
         return this.StatusConexao;
         
     }
-
-    public void DispersaAgua() throws MalformedURLException, IOException {
-        URL endereco = new URL(this.Endereco + "Agua/On");
-        URLConnection conn = endereco.openConnection();
-        //chmar Timer e fechar a dispersao de agua
-    }
-
-    public void DispersaAduno() throws MalformedURLException, IOException {
-        URL endereco = new URL(this.Endereco + "Adubo/On");
-        URLConnection conn = endereco.openConnection();
-        //chmar Timer e fechar a dispersao de agua
-    }
+    
 }
