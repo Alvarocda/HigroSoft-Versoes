@@ -52,6 +52,7 @@ public class Principal extends javax.swing.JFrame {
         LabelStatus = new javax.swing.JLabel();
         BtnControleManual = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("HigroSoft");
         setBackground(new java.awt.Color(255, 255, 255));
         setIconImage(getIconImage());
@@ -79,7 +80,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel4.setText("Temperatura");
 
         BarraTemperatura.setBackground(new java.awt.Color(255, 255, 255));
-        BarraTemperatura.setForeground(Color.GREEN);
+        BarraTemperatura.setForeground(Color.RED);
         BarraTemperatura.setOrientation(1);
         BarraTemperatura.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         BarraTemperatura.setEnabled(false);
@@ -130,7 +131,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setText("Umidade Ambiente");
 
         BarraUmidade.setBackground(new java.awt.Color(255, 255, 255));
-        BarraUmidade.setForeground(new java.awt.Color(0, 0, 255));
+        BarraUmidade.setForeground(new java.awt.Color(51, 102, 255));
         BarraUmidade.setOrientation(1);
         BarraUmidade.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         BarraUmidade.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -220,7 +221,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel8.setText("Umidade do Solo");
 
         BarraUmidadeSolo.setBackground(new java.awt.Color(255, 255, 255));
-        BarraUmidadeSolo.setForeground(new java.awt.Color(0, 0, 255));
+        BarraUmidadeSolo.setForeground(new java.awt.Color(116, 71, 29));
         BarraUmidadeSolo.setOrientation(1);
         BarraUmidadeSolo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         BarraUmidadeSolo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -271,6 +272,7 @@ public class Principal extends javax.swing.JFrame {
         BtnControleManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/Settings-48.png"))); // NOI18N
         BtnControleManual.setText("Controle Manual");
         BtnControleManual.setBorderPainted(false);
+        BtnControleManual.setEnabled(false);
         BtnControleManual.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnControleManual.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         BtnControleManual.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -458,20 +460,22 @@ public class Principal extends javax.swing.JFrame {
                     LabelUmidadeAmbiente.setText(Consome.getUmidadeAmbiente() + "%");
                     LabelUmidadeSolo.setText(Consome.getUmidadeSolo() + "%");
                     if(Consome.getStatus() == 1){
-                        BtnControleManual.isEnabled();
+                        BtnControleManual.setEnabled(true);
                         LabelStatus.setForeground(Color.GREEN);
                         LabelStatus.setText("OK");
                         
                     }else if(Consome.getStatus() == 2){
-                        BtnControleManual.disable();
+                        BtnControleManual.setEnabled(false);
                         LabelStatus.setForeground(Color.red);
                         LabelStatus.setText("Erro ao comunicar-se com o Arduino");
                         
                     }
                     if(Consome.getLogArduino() == 1){
+                        BtnControleManual.setEnabled(false);
                         LabelStatus.setForeground(Color.red);
                         LabelStatus.setText("Erro no sensor de umidade/temperatura");
                     }else if(Consome.getLogArduino() == 2){
+                        BtnControleManual.setEnabled(false);
                         LabelStatus.setForeground(Color.red);
                         LabelStatus.setText("Erro no sensor de umidade do solo");
                     }
