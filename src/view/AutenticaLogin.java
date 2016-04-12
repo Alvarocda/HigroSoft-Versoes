@@ -1,6 +1,7 @@
 package view;
 
 import DAO.UsuarioDAO;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,8 @@ public class AutenticaLogin extends javax.swing.JFrame {
     
     public AutenticaLogin() {
         initComponents();
+        
+        
     }
 
     /**
@@ -230,4 +233,6 @@ public class AutenticaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    
 }

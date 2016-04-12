@@ -5,11 +5,13 @@
  */
 package view;
 
+import DAO.ConsomeArduinoDAO;
 import DAO.ControleIrrigacao;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -39,6 +41,7 @@ public class ControleManual extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Controle manual de irrigação");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -128,11 +131,19 @@ public class ControleManual extends javax.swing.JFrame {
 
     private void BtnDispersaAguaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDispersaAguaActionPerformed
         ControleIrrigacao Controle = new ControleIrrigacao();
-        try {
-            Controle.AtivaDispersao("Agua", "/On");
+        try {            
+            ConsomeArduinoDAO RetornaUmidade = new ConsomeArduinoDAO();
+            if(RetornaUmidade.getUmidadeSolo() > 70){
+                int resposta = JOptionPane.showConfirmDialog(null, "A umidade esta acima de 70%\nTem certeza que deseja ativar a dispersão de agua?","Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if(resposta == JOptionPane.YES_OPTION){
+                    Controle.AtivaDispersao("Agua", "/On");
+                }                
+            }else{
+                Controle.AtivaDispersao("Agua", "/On");
+            }
         } catch (IOException ex) {
             Logger.getLogger(ControleManual.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }        
     }//GEN-LAST:event_BtnDispersaAguaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
