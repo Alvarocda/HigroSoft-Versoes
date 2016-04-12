@@ -375,7 +375,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void BtnSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSobreActionPerformed
-        JOptionPane.showMessageDialog(null, "Desenvolvido por:\nÁlvaro Claro\nRodrigo Paiva\nHigroSoft 2016 ", "Sobre", JOptionPane.INFORMATION_MESSAGE);
+        new TelaSobre().setVisible(true);
     }//GEN-LAST:event_BtnSobreActionPerformed
 
     private void BtnControleManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnControleManualActionPerformed
