@@ -60,17 +60,6 @@ public class ConsomeArduinoDAO {
 
     }
 
-    /**public String DetectaErroArduino() {
-        if (this.getLogArduino() == 1) {
-            return "Problemas com o DHT 22 Sensor de Temperatura";
-        } else if (this.getLogArduino() == 2) {
-            return "Erro no Sensor de Umidade de Solo";
-        } else if (this.getLogArduino() == 0) {
-            return "Leitura Realizada com Sucesso";
-        }
-        return "";
-    }**/
-
     public double getTemperatura() {
         return Temperatura;
     }

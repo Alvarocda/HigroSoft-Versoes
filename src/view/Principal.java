@@ -10,14 +10,15 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
+
 
 public class Principal extends javax.swing.JFrame {
 
     ConfirmaSaida Saida = new ConfirmaSaida();
-
+    
     public Principal() {
-        new updateView().start();
+        new updateView().start();        
         initComponents();        
     }
 

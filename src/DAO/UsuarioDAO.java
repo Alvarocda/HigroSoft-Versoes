@@ -17,9 +17,11 @@ public class UsuarioDAO {
         stmt.execute(sql);
         ResultSet rs = stmt.getResultSet();
         AutenticaLogin Login = new AutenticaLogin();
-        if (rs.next() == true) {                      
+        if (rs.next() == true) {
+            Conexao.Conecta().close();
             new Principal().setVisible(true);
         } else {
+            Conexao.Conecta().close();
             JOptionPane.showMessageDialog(null, "Usuário e Senha invalida");
             new AutenticaLogin().setVisible(true);            
         }

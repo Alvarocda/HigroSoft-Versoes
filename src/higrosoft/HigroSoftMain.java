@@ -6,9 +6,6 @@ import view.AutenticaLogin;
 public class HigroSoftMain {
     
     public static void main(String[] args) {
-        new AutenticaLogin().setVisible(true);
-        
-    }
-    
-    
+        new AutenticaLogin().setVisible(true);        
+    }    
 }
