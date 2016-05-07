@@ -15,8 +15,7 @@ public class UsuarioDAO {
         Statement stmt = Conexao.Conecta().createStatement();
         String sql = "SELECT * FROM usuario WHERE email ='" + Email + "' AND senha ='" + Senha + "'";
         stmt.execute(sql);
-        ResultSet rs = stmt.getResultSet();
-        AutenticaLogin Login = new AutenticaLogin();
+        ResultSet rs = stmt.getResultSet();        
         if (rs.next() == true) {
             Conexao.Conecta().close();
             new Principal().setVisible(true);
