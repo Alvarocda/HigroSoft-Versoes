@@ -17,6 +17,10 @@ import javax.swing.JOptionPane;
  */
 public class CadastroDeCulturas extends javax.swing.JFrame {
 
+    int UmidadeMinima;
+    String NomeDaCultura;
+    CulturaDAO GravaNovaCultura = new CulturaDAO();
+
     /**
      * Creates new form CadastroDeCulturas
      */
@@ -37,7 +41,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         TxtNomeDaCultura = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        TxtUnidadeMinima = new javax.swing.JTextField();
+        TxtUmidadeMinima = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         BtnCadastrar = new javax.swing.JButton();
         BtnCancelar = new javax.swing.JButton();
@@ -48,6 +52,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
         setType(java.awt.Window.Type.UTILITY);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel1.setText("Nome da cultura.:");
@@ -57,7 +62,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel2.setText("Umidade minima.:");
 
-        TxtUnidadeMinima.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        TxtUmidadeMinima.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel3.setText("%");
@@ -70,6 +75,11 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
         });
 
         BtnCancelar.setText("Cancelar");
+        BtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,10 +98,10 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TxtNomeDaCultura, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(TxtUnidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(TxtUmidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)))
-                        .addContainerGap(20, Short.MAX_VALUE))
+                        .addContainerGap(18, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BtnCadastrar)
@@ -108,9 +118,9 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(TxtUnidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(TxtUmidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnCadastrar)
                     .addComponent(BtnCancelar))
@@ -133,20 +143,25 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCadastrarActionPerformed
-        CulturaDAO GravaNovaCultura = new CulturaDAO();
-        int UmidadeMinima = Integer.parseInt(this.TxtUnidadeMinima.getText());
-        String NomeDaCultura = this.TxtNomeDaCultura.getText();
         try {
-            GravaNovaCultura.GravaCultura(NomeDaCultura, UmidadeMinima);
+            this.ValidaEntrada();
         } catch (SQLException ex) {
             Logger.getLogger(CadastroDeCulturas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BtnCadastrarActionPerformed
-    public void ValidaEntrada(){
-        if(this.TxtNomeDaCultura.getText().isEmpty() || this.TxtUnidadeMinima.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os dados corretamente", "Erro", JOptionPane.ERROR_MESSAGE);
+
+    private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_BtnCancelarActionPerformed
+    public void ValidaEntrada() throws SQLException {
+          
+        if (this.TxtNomeDaCultura.getText().isEmpty() || this.TxtUmidadeMinima.getText().isEmpty() || this.TxtUmidadeMinima.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Erro");
+        } else {
+            GravaNovaCultura.GravaCultura(NomeDaCultura, UmidadeMinima);
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -186,7 +201,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
     private javax.swing.JButton BtnCadastrar;
     private javax.swing.JButton BtnCancelar;
     private javax.swing.JTextField TxtNomeDaCultura;
-    private javax.swing.JTextField TxtUnidadeMinima;
+    private javax.swing.JTextField TxtUmidadeMinima;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -13,9 +13,10 @@ public class CulturaDAO {
     public void GravaCultura(String NomeCultura, int UmidadeMinima) throws SQLException {
         try {
             Statement stmt = conexao.Conecta().createStatement();
-            String sql = "";
+            String sql = "INSERT INTO culturas(nome_cultura,umidade_minima) VALUES('"+NomeCultura+"','"+UmidadeMinima+"')";
             stmt.executeUpdate(sql);
             conexao.Conecta().close();
+            JOptionPane.showMessageDialog(null,"Cultura cadastrada com sucesso!");            
         } catch (SQLException e) {
             conexao.Conecta().close();
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar nova cultura", "Erro", JOptionPane.ERROR_MESSAGE);
