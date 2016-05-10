@@ -40,11 +40,14 @@ public class ControleManual extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Controle manual de irrigação");
+        setUndecorated(true);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         BtnDispersaAdubo.setBackground(new java.awt.Color(255, 255, 255));
+        BtnDispersaAdubo.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
         BtnDispersaAdubo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/nature.png"))); // NOI18N
         BtnDispersaAdubo.setText("Dispersar Fertilizante");
         BtnDispersaAdubo.setBorderPainted(false);
@@ -58,6 +61,7 @@ public class ControleManual extends javax.swing.JFrame {
         });
 
         BtnDispersaAgua.setBackground(new java.awt.Color(255, 255, 255));
+        BtnDispersaAgua.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
         BtnDispersaAgua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/spray.png"))); // NOI18N
         BtnDispersaAgua.setText("Dispersar Agua");
         BtnDispersaAgua.setBorderPainted(false);
@@ -70,6 +74,7 @@ public class ControleManual extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
         jButton3.setText("Desliga fertilizante");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +82,7 @@ public class ControleManual extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
         jButton4.setText("Desliga Agua");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,26 +108,26 @@ public class ControleManual extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BtnDispersaAgua)
                     .addComponent(BtnDispersaAdubo))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4)
                     .addComponent(jButton3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

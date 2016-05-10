@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class RegistroUsuario extends javax.swing.JFrame {
 
-    boolean status;
+    Principal ViewPrincipal = new Principal();
     public RegistroUsuario() {
         initComponents();
     }
@@ -50,6 +50,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel2.setText("Senha:");
 
+        BtnRegistrar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnRegistrar.setText("Registrar");
         BtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,6 +58,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
             }
         });
 
+        BtnCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnCancelar.setText("Cancelar");
         BtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,7 +123,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -141,6 +143,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
+        new Principal().setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
@@ -187,6 +190,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
             Matcher matcher = pattern.matcher(this.TxtNovoEmail.getText());
             if(matcher.matches() == true){
                 new UsuarioDAO().CriaNovoUsuario(TxtNovoEmail.getText(), TxtNovaSenha.getText());
+                new Principal().setEnabled(true);
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Por favor, insira seu email corretamente!");

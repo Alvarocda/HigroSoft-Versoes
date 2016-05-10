@@ -10,7 +10,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 
 
 public class Principal extends javax.swing.JFrame {
@@ -52,7 +51,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         LabelStatus = new javax.swing.JLabel();
         BtnControleManual = new javax.swing.JButton();
-        BtnCadastrarNovaCultura = new javax.swing.JButton();
+        BtnAbreTelaCulturas = new javax.swing.JButton();
 
         setTitle("HigroSoft");
         setBackground(new java.awt.Color(255, 255, 255));
@@ -80,6 +79,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/thermometer16.png"))); // NOI18N
 
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel4.setText("Temperatura");
 
         BarraTemperatura.setBackground(new java.awt.Color(255, 255, 255));
@@ -131,6 +131,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/liquid15.png"))); // NOI18N
 
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel2.setText("Umidade Ambiente");
 
         BarraUmidade.setBackground(new java.awt.Color(255, 255, 255));
@@ -177,6 +178,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         BtnAddUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        BtnAddUsuario.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnAddUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/Add User-48.png"))); // NOI18N
         BtnAddUsuario.setText("Novo Usuario");
         BtnAddUsuario.setToolTipText("Clique para adicionar novos Usuarios");
@@ -191,6 +193,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         BtnSobre.setBackground(new java.awt.Color(255, 255, 255));
+        BtnSobre.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/About Us-48.png"))); // NOI18N
         BtnSobre.setText("Sobre");
         BtnSobre.setToolTipText("Clique para saber mais sobre o Software");
@@ -205,6 +208,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         BtnSair.setBackground(new java.awt.Color(255, 255, 255));
+        BtnSair.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/Export-48.png"))); // NOI18N
         BtnSair.setText("Sair");
         BtnSair.setToolTipText("Clique para sair do Software");
@@ -221,6 +225,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setToolTipText("Indica a umidade do solo");
 
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel8.setText("Umidade do Solo");
 
         BarraUmidadeSolo.setBackground(new java.awt.Color(255, 255, 255));
@@ -268,9 +273,13 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jLabel5))))
         );
 
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Status:");
 
+        LabelStatus.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
         BtnControleManual.setBackground(new java.awt.Color(255, 255, 255));
+        BtnControleManual.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnControleManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/Settings-48.png"))); // NOI18N
         BtnControleManual.setText("Controle Manual");
         BtnControleManual.setBorderPainted(false);
@@ -284,16 +293,17 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        BtnCadastrarNovaCultura.setBackground(new java.awt.Color(255, 255, 255));
-        BtnCadastrarNovaCultura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sproutPrincipal.png"))); // NOI18N
-        BtnCadastrarNovaCultura.setText("Culturas");
-        BtnCadastrarNovaCultura.setBorderPainted(false);
-        BtnCadastrarNovaCultura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BtnCadastrarNovaCultura.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        BtnCadastrarNovaCultura.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        BtnCadastrarNovaCultura.addActionListener(new java.awt.event.ActionListener() {
+        BtnAbreTelaCulturas.setBackground(new java.awt.Color(255, 255, 255));
+        BtnAbreTelaCulturas.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        BtnAbreTelaCulturas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sproutPrincipal.png"))); // NOI18N
+        BtnAbreTelaCulturas.setText("Culturas");
+        BtnAbreTelaCulturas.setBorderPainted(false);
+        BtnAbreTelaCulturas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnAbreTelaCulturas.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        BtnAbreTelaCulturas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnAbreTelaCulturas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCadastrarNovaCulturaActionPerformed(evt);
+                BtnAbreTelaCulturasActionPerformed(evt);
             }
         });
 
@@ -307,8 +317,8 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(BtnAddUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BtnCadastrarNovaCultura)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                        .addComponent(BtnAbreTelaCulturas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BtnControleManual)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnSobre)
@@ -327,18 +337,18 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(71, 71, 71)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BtnAddUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnSobre, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                    .addComponent(BtnAddUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                    .addComponent(BtnSobre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BtnSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BtnControleManual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnCadastrarNovaCultura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BtnAbreTelaCulturas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -392,9 +402,9 @@ public class Principal extends javax.swing.JFrame {
         new ControleManual().setVisible(true);
     }//GEN-LAST:event_BtnControleManualActionPerformed
 
-    private void BtnCadastrarNovaCulturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCadastrarNovaCulturaActionPerformed
-        new CadastroDeCulturas().setVisible(true);
-    }//GEN-LAST:event_BtnCadastrarNovaCulturaActionPerformed
+    private void BtnAbreTelaCulturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAbreTelaCulturasActionPerformed
+        new TelaCulturas().setVisible(true);
+    }//GEN-LAST:event_BtnAbreTelaCulturasActionPerformed
 
    
     public static void main(String args[]) {
@@ -436,8 +446,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JProgressBar BarraTemperatura;
     private javax.swing.JProgressBar BarraUmidade;
     private javax.swing.JProgressBar BarraUmidadeSolo;
+    private javax.swing.JButton BtnAbreTelaCulturas;
     private javax.swing.JButton BtnAddUsuario;
-    private javax.swing.JButton BtnCadastrarNovaCultura;
     private javax.swing.JButton BtnControleManual;
     private javax.swing.JButton BtnSair;
     private javax.swing.JButton BtnSobre;

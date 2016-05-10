@@ -20,6 +20,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
     int UmidadeMinima;
     String NomeDaCultura;
     CulturaDAO GravaNovaCultura = new CulturaDAO();
+    Principal ViewPrincipal = new Principal();
 
     /**
      * Creates new form CadastroDeCulturas
@@ -67,6 +68,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel3.setText("%");
 
+        BtnCadastrar.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
         BtnCadastrar.setText("Cadastrar");
         BtnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,6 +76,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
             }
         });
 
+        BtnCancelar.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
         BtnCancelar.setText("Cancelar");
         BtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,7 +104,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
                                 .addComponent(TxtUmidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)))
-                        .addContainerGap(18, Short.MAX_VALUE))
+                        .addContainerGap(20, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BtnCadastrar)
@@ -151,6 +154,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnCadastrarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
+        ViewPrincipal.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_BtnCancelarActionPerformed
     public void ValidaEntrada() throws SQLException, NumberFormatException {
@@ -164,9 +168,12 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
                 NomeDaCultura = this.TxtNomeDaCultura.getText();
                 UmidadeMinima = Integer.parseInt(this.TxtUmidadeMinima.getText());
                 GravaNovaCultura.GravaCultura(NomeDaCultura, UmidadeMinima);
+                ViewPrincipal.setEnabled(true);
+                this.dispose();
+                
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Por favor, use apenas numeros");
+            JOptionPane.showMessageDialog(null, "Por favor, preencha o campo de umidade minima e use apenas numeros");
         }
     }
 
