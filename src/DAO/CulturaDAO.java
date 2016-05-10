@@ -19,7 +19,7 @@ public class CulturaDAO {
             JOptionPane.showMessageDialog(null,"Cultura cadastrada com sucesso!");            
         } catch (SQLException e) {
             conexao.Conecta().close();
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar nova cultura", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar nova cultura"+e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     public void BuscaCulturaSelecionada() throws SQLException{

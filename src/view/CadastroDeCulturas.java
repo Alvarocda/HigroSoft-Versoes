@@ -153,12 +153,20 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_BtnCancelarActionPerformed
-    public void ValidaEntrada() throws SQLException {
-          
-        if (this.TxtNomeDaCultura.getText().isEmpty() || this.TxtUmidadeMinima.getText().isEmpty() || this.TxtUmidadeMinima.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Erro");
-        } else {
-            GravaNovaCultura.GravaCultura(NomeDaCultura, UmidadeMinima);
+    public void ValidaEntrada() throws SQLException, NumberFormatException {
+        try {
+            UmidadeMinima = Integer.parseInt(this.TxtUmidadeMinima.getText());            
+            if (this.TxtNomeDaCultura.getText().isEmpty() || this.TxtUmidadeMinima.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Erro, por favor preencha todos os campos");
+            } else if (UmidadeMinima > 100 || UmidadeMinima < 0) {
+                JOptionPane.showMessageDialog(null, "Insira um valor entre 0 e 100");
+            } else {
+                NomeDaCultura = this.TxtNomeDaCultura.getText();
+                UmidadeMinima = Integer.parseInt(this.TxtUmidadeMinima.getText());
+                GravaNovaCultura.GravaCultura(NomeDaCultura, UmidadeMinima);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Por favor, use apenas numeros");
         }
     }
 
@@ -176,16 +184,24 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroDeCulturas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroDeCulturas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroDeCulturas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroDeCulturas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroDeCulturas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroDeCulturas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroDeCulturas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroDeCulturas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

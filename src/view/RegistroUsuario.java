@@ -4,6 +4,8 @@ import DAO.UsuarioDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class RegistroUsuario extends javax.swing.JFrame {
@@ -179,9 +181,16 @@ public class RegistroUsuario extends javax.swing.JFrame {
     public void VerificaCampos() throws SQLException{
         if((TxtNovoEmail.getText().isEmpty()) && (TxtNovaSenha.getText().isEmpty())){
             JOptionPane.showMessageDialog(null,"Por favor preencha todos os campos", "Erro", JOptionPane.ERROR_MESSAGE);
-        }else{
-            new UsuarioDAO().CriaNovoUsuario(TxtNovoEmail.getText(), TxtNovaSenha.getText());
-            this.dispose();
+        }else {
+            String emailPattern = "\\b(^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([A-Za-z0-9-])+(\\.[A-Za-z0-9-]+)*((\\.[A-Za-z0-9]{2,})|(\\.[A-Za-z0-9]{2,}\\.[A-Za-z0-9]{2,}))$)\\b";
+            Pattern pattern = Pattern.compile(emailPattern, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(this.TxtNovoEmail.getText());
+            if(matcher.matches() == true){
+                new UsuarioDAO().CriaNovoUsuario(TxtNovoEmail.getText(), TxtNovaSenha.getText());
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Por favor, insira seu email corretamente!");
+            }          
         }
     }    
     

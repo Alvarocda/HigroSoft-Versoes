@@ -54,7 +54,6 @@ public class Principal extends javax.swing.JFrame {
         BtnControleManual = new javax.swing.JButton();
         BtnCadastrarNovaCultura = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("HigroSoft");
         setBackground(new java.awt.Color(255, 255, 255));
         setIconImage(getIconImage());
@@ -286,8 +285,8 @@ public class Principal extends javax.swing.JFrame {
         });
 
         BtnCadastrarNovaCultura.setBackground(new java.awt.Color(255, 255, 255));
-        BtnCadastrarNovaCultura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sprout.png"))); // NOI18N
-        BtnCadastrarNovaCultura.setText("Nova Cultura");
+        BtnCadastrarNovaCultura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sproutPrincipal.png"))); // NOI18N
+        BtnCadastrarNovaCultura.setText("Culturas");
         BtnCadastrarNovaCultura.setBorderPainted(false);
         BtnCadastrarNovaCultura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnCadastrarNovaCultura.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -309,7 +308,7 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(BtnAddUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(BtnCadastrarNovaCultura)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                         .addComponent(BtnControleManual)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnSobre)
