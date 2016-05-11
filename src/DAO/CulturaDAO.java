@@ -27,9 +27,9 @@ public class CulturaDAO {
     }
     public DefaultTableModel AlimentaTabela() throws SQLException{
         DefaultTableModel dm = new DefaultTableModel();
-        dm.addColumn("id");
-        dm.addColumn("Nome da cultura");
-        dm.addColumn("Umidade minima");
+        dm.addColumn("ID");
+        dm.addColumn("Cultura");
+        dm.addColumn("Umid. minima");
         String sql = "SELECT * FROM culturas";
         try{
             Statement stmt = conexao.Conecta().createStatement();

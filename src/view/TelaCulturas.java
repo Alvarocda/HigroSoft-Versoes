@@ -19,8 +19,9 @@ import javax.swing.table.DefaultTableModel;
 public class TelaCulturas extends javax.swing.JFrame {
 
     CulturaDAO Culturas = new CulturaDAO();
+
     public TelaCulturas() {
-        
+
         initComponents();
     }
 
@@ -176,13 +177,14 @@ public class TelaCulturas extends javax.swing.JFrame {
                                 .addGap(29, 29, 29)
                                 .addComponent(jButton1))
                             .addComponent(TxtUmidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TxtNomeCultura, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(TxtNomeCultura, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                                .addGap(37, 37, 37)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -241,38 +243,47 @@ public class TelaCulturas extends javax.swing.JFrame {
 
     private void BtnRemoverCulturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRemoverCulturaActionPerformed
         int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover a cultura selecionada?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-        if(confirmacao == JOptionPane.YES_OPTION){
+        if (confirmacao == JOptionPane.YES_OPTION) {
             int index = jTable1.getSelectedRow();
             String id = jTable1.getValueAt(index, 0).toString();
-            try{
-            Culturas.DeletaCultura(Integer.parseInt(id));
-            this.AtualizaTabela();
-            }catch(SQLException e){
+            try {
+                Culturas.DeletaCultura(Integer.parseInt(id));
+                this.AtualizaTabela();
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }        
+        }
     }//GEN-LAST:event_BtnRemoverCulturaActionPerformed
 
     private void BtnAlterarCulturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAlterarCulturaActionPerformed
         int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja alterar a cultura selecionada?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-        if(confirmacao == JOptionPane.YES_OPTION){
+        if (confirmacao == JOptionPane.YES_OPTION) {
             int index = jTable1.getSelectedRow();
             String id = jTable1.getValueAt(index, 0).toString();
+
             try {
-                Culturas.AtualizaCultura(Integer.parseInt(id), this.TxtNomeCultura.getText(), Integer.parseInt(this.TxtUmidadeMinima.getText()));
-                TxtNomeCultura.setText("");
-                TxtUmidadeMinima.setText("");
-                this.AtualizaTabela();
+                int UmidadeMinima = Integer.parseInt(this.TxtUmidadeMinima.getText());
+                if (UmidadeMinima > 100 || UmidadeMinima <= 0) {
+                    JOptionPane.showMessageDialog(null, "Por favor, preencha apenas com numeros de 1 a 100");
+                } else {
+                    Culturas.AtualizaCultura(Integer.parseInt(id), this.TxtNomeCultura.getText(), Integer.parseInt(this.TxtUmidadeMinima.getText()));
+                    TxtNomeCultura.setText("");
+                    TxtUmidadeMinima.setText("");
+                    this.AtualizaTabela();
+                }
+
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 Logger.getLogger(TelaCulturas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, preencha o campo de umidade minima e use apenas numeros");
             }
         }
     }//GEN-LAST:event_BtnAlterarCulturaActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         String NomeCultura = jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString();
-        int UmidadeMinima  = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        int UmidadeMinima = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
         TxtNomeCultura.setText(NomeCultura);
         TxtUmidadeMinima.setText(Integer.toString(UmidadeMinima));
     }//GEN-LAST:event_jTable1MouseClicked
@@ -284,10 +295,11 @@ public class TelaCulturas extends javax.swing.JFrame {
             Logger.getLogger(TelaCulturas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-    public void AtualizaTabela() throws SQLException{
+    public void AtualizaTabela() throws SQLException {
         DefaultTableModel dm = new CulturaDAO().AlimentaTabela();
         jTable1.setModel(dm);
     }
+
     /**
      * @param args the command line arguments
      */
