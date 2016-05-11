@@ -403,6 +403,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnControleManualActionPerformed
 
     private void BtnAbreTelaCulturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAbreTelaCulturasActionPerformed
+        
         new TelaCulturas().setVisible(true);
     }//GEN-LAST:event_BtnAbreTelaCulturasActionPerformed
 

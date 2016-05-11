@@ -162,7 +162,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
             UmidadeMinima = Integer.parseInt(this.TxtUmidadeMinima.getText());            
             if (this.TxtNomeDaCultura.getText().isEmpty() || this.TxtUmidadeMinima.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Erro, por favor preencha todos os campos");
-            } else if (UmidadeMinima > 100 || UmidadeMinima < 0) {
+            } else if (UmidadeMinima > 100 || UmidadeMinima <= 0) {
                 JOptionPane.showMessageDialog(null, "Insira um valor entre 0 e 100");
             } else {
                 NomeDaCultura = this.TxtNomeDaCultura.getText();
