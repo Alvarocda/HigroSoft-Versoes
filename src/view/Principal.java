@@ -8,6 +8,7 @@ package view;
 import DAO.ConsomeArduinoDAO;
 import java.awt.Color;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -403,8 +404,13 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnControleManualActionPerformed
 
     private void BtnAbreTelaCulturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAbreTelaCulturasActionPerformed
-        
-        new TelaCulturas().setVisible(true);
+        try {
+            new TelaCulturas().AtualizaTabela();
+            new TelaCulturas().setVisible(true);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnAbreTelaCulturasActionPerformed
 
    
