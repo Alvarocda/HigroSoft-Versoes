@@ -163,15 +163,7 @@ public class AlterarCultura extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_BtnAlterarActionPerformed
-    /**public void AlimentaForm(int ID, String NomeCultura, int UmidMinima){
-        id = ID;
-        String a = NomeCultura;
-        int b = UmidMinima;           //Implementar depois!
-        TxtNomeDaCultura.setText(a);
-        TxtUmidadeMinima.setText(Integer.toString(b));
-        JOptionPane.showMessageDialog(null, ""+id+"\n"+NomeCultura+"\n"+UmidMinima);        
-    }**/
-    
+        
     /**
      * @param args the command line arguments
      */

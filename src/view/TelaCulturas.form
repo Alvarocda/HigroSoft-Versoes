@@ -51,39 +51,36 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jScrollPane2" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" pref="374" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jLabel4" min="-2" pref="24" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" pref="421" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jLabel4" min="-2" pref="24" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Component id="BtnCadastrarCultura" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="BtnRemoverCultura" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="BtnAlterarCultura" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="BtnAgendarIrrigacao" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="BtnVoltar" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="TxtNomeDaCultura" min="-2" pref="201" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="BtnVoltar" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="TxtUmidadeMinima" min="-2" pref="33" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -91,7 +88,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -99,23 +96,20 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="BtnVoltar" min="-2" max="-2" attributes="0"/>
-                      <Component id="BtnCadastrarCultura" min="-2" max="-2" attributes="0"/>
-                      <Component id="BtnRemoverCultura" min="-2" pref="79" max="-2" attributes="0"/>
-                      <Component id="BtnAlterarCultura" min="-2" pref="79" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="BtnCadastrarCultura" max="32767" attributes="0"/>
+                      <Component id="BtnAgendarIrrigacao" max="32767" attributes="0"/>
+                      <Component id="BtnAlterarCultura" alignment="0" max="32767" attributes="0"/>
+                      <Component id="BtnRemoverCultura" alignment="0" max="32767" attributes="0"/>
+                      <Component id="BtnVoltar" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="TxtNomeDaCultura" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="TxtUmidadeMinima" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="TxtNomeDaCultura" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="TxtUmidadeMinima" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
@@ -124,7 +118,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="174" max="-2" attributes="0"/>
-                  <EmptySpace pref="67" max="32767" attributes="0"/>
+                  <EmptySpace pref="51" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -141,7 +135,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/view/img/sprout.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cadastrar Cultura"/>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;&#xa;&lt;HEAD&gt;&#xa;&lt;/HEAD&gt;&#xa;&lt;center&gt;&#xa;Cadastrar&lt;br&gt;&#xa;Cultura&#xa;&lt;/center&gt;&#xa;&lt;/BODY&gt;&#xa;&lt;/HTML&gt;"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalAlignment" type="int" value="3"/>
@@ -162,10 +156,10 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/view/img/Export-48.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Voltar"/>
+            <Property name="text" type="java.lang.String" value="Sair"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="verticalAlignment" type="int" value="3"/>
+            <Property name="verticalAlignment" type="int" value="1"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
@@ -183,7 +177,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/view/img/sproutRemover.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Remover Cultura"/>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;&#xa;&lt;HEAD&gt;&#xa;&lt;/HEAD&gt;&#xa;&lt;center&gt;&#xa;Remover&lt;br&gt;&#xa;Cultura&#xa;&lt;/center&gt;&#xa;&lt;/BODY&gt;&#xa;&lt;/HTML&gt;"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalAlignment" type="int" value="3"/>
@@ -204,7 +198,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/view/img/sproutAlterar.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Alterar Cultura"/>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;&#xa;&lt;HEAD&gt;&#xa;&lt;/HEAD&gt;&#xa;&lt;center&gt;&#xa;Alterar&lt;br&gt;&#xa;Cultura&#xa;&lt;/center&gt;&#xa;&lt;/BODY&gt;&#xa;&lt;/HTML&gt;"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalAlignment" type="int" value="3"/>
@@ -234,6 +228,7 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="jTable1">
               <Properties>
+                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="0" rowCount="0"/>
                 </Property>
@@ -255,7 +250,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/view/img/question.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Para remover uma cultura, basta seleciona-la na tabela ao lado e clicar na op&#xe7;&#xe3;o &quot;Remover cultura&quot;.&lt;br&gt;&#xa;&lt;br&gt;&#xa;Para alterar uma cultura, basta seleciona-la na tabela ao lado e efetuar as altera&#xe7;&#xf5;es nos campos ao lado&lt;br&gt;&#xa;e ent&#xe3;o clicar na op&#xe7;&#xe3;o &quot;Alterar cultura&quot;."/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;HTML&gt;&#xa;&lt;HEAD&gt;&#xa;&lt;/HEAD&gt;&#xa;Para remover uma cultura, basta seleciona-la na tabela ao lado e clicar na op&#xe3;o &quot;Remover Cultura&quot;.&lt;br&gt;&#xa;Para alterar uma uma cultura, basta seleciona-la na tabela ao lado, e usar os campos acima para mudar&lt;br&gt; &#xa;o nome e umidade minima, depois, clique na op&#xe7;&#xe3;o &quot;Alterar Cultura&quot; para altera-la&#xa;&lt;/BODY&gt;&#xa;&lt;/HTML&gt;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TxtNomeDaCultura">
@@ -291,6 +286,24 @@
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
             <Property name="text" type="java.lang.String" value="%"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="BtnAgendarIrrigacao">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Calibri" size="14" style="0"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/img/sproutAgendar.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;&#xa;&lt;HEAD&gt;&#xa;&lt;/HEAD&gt;&#xa;&lt;center&gt;&#xa;Agendar&lt;br&gt;&#xa;Irriga&#xe7;&#xe3;o&#xa;&lt;/center&gt;&#xa;&lt;/BODY&gt;&#xa;&lt;/HTML&gt;"/>
+            <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalAlignment" type="int" value="3"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -50,6 +50,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel2.setText("Senha:");
 
+        BtnRegistrar.setBackground(new java.awt.Color(255, 255, 255));
         BtnRegistrar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnRegistrar.setText("Registrar");
         BtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -58,6 +59,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
             }
         });
 
+        BtnCancelar.setBackground(new java.awt.Color(255, 255, 255));
         BtnCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnCancelar.setText("Cancelar");
         BtnCancelar.addActionListener(new java.awt.event.ActionListener() {

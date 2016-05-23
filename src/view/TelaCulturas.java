@@ -50,6 +50,7 @@ public class TelaCulturas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        BtnAgendarIrrigacao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerenciamento de culturas");
@@ -62,7 +63,7 @@ public class TelaCulturas extends javax.swing.JFrame {
         BtnCadastrarCultura.setBackground(new java.awt.Color(255, 255, 255));
         BtnCadastrarCultura.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnCadastrarCultura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sprout.png"))); // NOI18N
-        BtnCadastrarCultura.setText("Cadastrar Cultura");
+        BtnCadastrarCultura.setText("<HTML>\n<HEAD>\n</HEAD>\n<center>\nCadastrar<br>\nCultura\n</center>\n</BODY>\n</HTML>");
         BtnCadastrarCultura.setBorderPainted(false);
         BtnCadastrarCultura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnCadastrarCultura.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -76,10 +77,10 @@ public class TelaCulturas extends javax.swing.JFrame {
         BtnVoltar.setBackground(new java.awt.Color(255, 255, 255));
         BtnVoltar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/Export-48.png"))); // NOI18N
-        BtnVoltar.setText("Voltar");
+        BtnVoltar.setText("Sair");
         BtnVoltar.setBorderPainted(false);
         BtnVoltar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BtnVoltar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        BtnVoltar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         BtnVoltar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         BtnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,7 +91,7 @@ public class TelaCulturas extends javax.swing.JFrame {
         BtnRemoverCultura.setBackground(new java.awt.Color(255, 255, 255));
         BtnRemoverCultura.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnRemoverCultura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sproutRemover.png"))); // NOI18N
-        BtnRemoverCultura.setText("Remover Cultura");
+        BtnRemoverCultura.setText("<HTML>\n<HEAD>\n</HEAD>\n<center>\nRemover<br>\nCultura\n</center>\n</BODY>\n</HTML>");
         BtnRemoverCultura.setBorderPainted(false);
         BtnRemoverCultura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnRemoverCultura.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -104,7 +105,7 @@ public class TelaCulturas extends javax.swing.JFrame {
         BtnAlterarCultura.setBackground(new java.awt.Color(255, 255, 255));
         BtnAlterarCultura.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnAlterarCultura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sproutAlterar.png"))); // NOI18N
-        BtnAlterarCultura.setText("Alterar Cultura");
+        BtnAlterarCultura.setText("<HTML>\n<HEAD>\n</HEAD>\n<center>\nAlterar<br>\nCultura\n</center>\n</BODY>\n</HTML>");
         BtnAlterarCultura.setBorderPainted(false);
         BtnAlterarCultura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnAlterarCultura.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -121,6 +122,7 @@ public class TelaCulturas extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -137,7 +139,7 @@ public class TelaCulturas extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/question.png"))); // NOI18N
-        jLabel4.setToolTipText("Para remover uma cultura, basta seleciona-la na tabela ao lado e clicar na opção \"Remover cultura\".<br>\n<br>\nPara alterar uma cultura, basta seleciona-la na tabela ao lado e efetuar as alterações nos campos ao lado<br>\ne então clicar na opção \"Alterar cultura\".");
+        jLabel4.setToolTipText("<HTML>\n<HEAD>\n</HEAD>\nPara remover uma cultura, basta seleciona-la na tabela ao lado e clicar na opão \"Remover Cultura\".<br>\nPara alterar uma uma cultura, basta seleciona-la na tabela ao lado, e usar os campos acima para mudar<br> \no nome e umidade minima, depois, clique na opção \"Alterar Cultura\" para altera-la\n</BODY>\n</HTML>");
 
         TxtNomeDaCultura.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
@@ -151,69 +153,76 @@ public class TelaCulturas extends javax.swing.JFrame {
 
         jLabel5.setText("%");
 
+        BtnAgendarIrrigacao.setBackground(new java.awt.Color(255, 255, 255));
+        BtnAgendarIrrigacao.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        BtnAgendarIrrigacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/sproutAgendar.png"))); // NOI18N
+        BtnAgendarIrrigacao.setText("<HTML>\n<HEAD>\n</HEAD>\n<center>\nAgendar<br>\nIrrigação\n</center>\n</BODY>\n</HTML>");
+        BtnAgendarIrrigacao.setBorderPainted(false);
+        BtnAgendarIrrigacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnAgendarIrrigacao.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        BtnAgendarIrrigacao.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGap(27, 27, 27)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(BtnCadastrarCultura)
+                                .addComponent(BtnCadastrarCultura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BtnRemoverCultura)
+                                .addComponent(BtnRemoverCultura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BtnAlterarCultura)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(BtnAlterarCultura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnAgendarIrrigacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(BtnVoltar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(TxtNomeDaCultura, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
-                                .addGap(8, 8, 8)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnVoltar)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(TxtUmidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5)))))
-                .addGap(21, 21, 21))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BtnVoltar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(BtnCadastrarCultura)
-                    .addComponent(BtnRemoverCultura, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnAlterarCultura, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BtnAgendarIrrigacao)
+                    .addComponent(BtnAlterarCultura)
+                    .addComponent(BtnRemoverCultura)
+                    .addComponent(BtnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(TxtNomeDaCultura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(TxtUmidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel5)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtNomeDaCultura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtUmidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -352,6 +361,7 @@ public class TelaCulturas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAgendarIrrigacao;
     private javax.swing.JButton BtnAlterarCultura;
     private javax.swing.JButton BtnCadastrarCultura;
     private javax.swing.JButton BtnRemoverCultura;
