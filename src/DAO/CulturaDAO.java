@@ -12,10 +12,10 @@ public class CulturaDAO {
 
     EntidadeConexao conexao = new EntidadeConexao();
 
-    public void GravaCultura(String NomeCultura, int UmidadeMinima) throws SQLException {
+    public void GravaCultura(String NomeCultura, int UmidadeMinima,String FrequenciaAgua, String FrequenciaFertilizante,String Usuario) throws SQLException {
         try {
             Statement stmt = conexao.Conecta().createStatement();
-            String sql = "INSERT INTO culturas(nome_cultura,umidade_minima) VALUES('"+NomeCultura+"','"+UmidadeMinima+"')";
+            String sql = "INSERT INTO culturas(nome_cultura,umidade_minima,usuario_que_adicionou,frequencia_agua,frequencia_fertilizante) VALUES('"+NomeCultura+"','"+UmidadeMinima+"','"+Usuario+"','"+FrequenciaAgua+"','"+FrequenciaFertilizante+"')";
             stmt.executeUpdate(sql);
             conexao.Conecta().close();
             new TelaCulturas().AtualizaTabela();
@@ -30,6 +30,8 @@ public class CulturaDAO {
         dm.addColumn("ID");
         dm.addColumn("Cultura");
         dm.addColumn("Umid. minima");
+        dm.addColumn("Freq. Água");
+        dm.addColumn("Freq. Fertilizante");
         String sql = "SELECT * FROM culturas";
         try{
             Statement stmt = conexao.Conecta().createStatement();
@@ -38,7 +40,9 @@ public class CulturaDAO {
                 String ID = rset.getString(1);
                 String NomeCultura = rset.getString(2);
                 int UmidadeMinima = rset.getInt(3);
-                dm.addRow(new String[]{Integer.toString(UmidadeMinima),ID, NomeCultura,});
+                String FrequenciaAgua = rset.getString(5);
+                String FrequenciaFertilizante = rset.getString(6);
+                dm.addRow(new String[]{Integer.toString(UmidadeMinima),ID, NomeCultura,FrequenciaAgua,FrequenciaFertilizante});
             }
             conexao.Conecta().close();
             return dm;

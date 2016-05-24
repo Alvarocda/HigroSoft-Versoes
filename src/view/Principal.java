@@ -6,20 +6,22 @@
 package view;
 
 import DAO.ConsomeArduinoDAO;
+import DAO.ControleIrrigacao;
 import java.awt.Color;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
 
     ConfirmaSaida Saida = new ConfirmaSaida();
-    
+    private static String CulturaAtiva;
     public Principal() {
-        new updateView().start();        
-        initComponents();        
+        new updateView().start();
+        new VerificaUmidadeMinimaEFrequencia().start();
+        initComponents();
     }
 
     @SuppressWarnings("unchecked")
@@ -53,6 +55,8 @@ public class Principal extends javax.swing.JFrame {
         LabelStatus = new javax.swing.JLabel();
         BtnControleManual = new javax.swing.JButton();
         BtnAbreTelaCulturas = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        LabelCulturaAtiva = new javax.swing.JLabel();
 
         setTitle("HigroSoft");
         setBackground(new java.awt.Color(255, 255, 255));
@@ -308,37 +312,52 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel7.setText("Cultura ativa:");
+
+        LabelCulturaAtiva.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        LabelCulturaAtiva.setText("Nenhuma");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(BtnAddUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BtnAbreTelaCulturas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnControleManual)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtnSobre)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnSair))
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(BtnAddUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BtnAbreTelaCulturas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BtnControleManual)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnSobre)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnSair))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(96, 96, 96)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(81, 81, 81)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelCulturaAtiva)))
+                        .addGap(0, 103, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(113, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,7 +374,11 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(LabelCulturaAtiva))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(LabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -407,13 +430,12 @@ public class Principal extends javax.swing.JFrame {
         try {
             new TelaCulturas().AtualizaTabela();
             new TelaCulturas().setVisible(true);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BtnAbreTelaCulturasActionPerformed
 
-   
     public static void main(String args[]) {
 
         /* Set the Nimbus look and feel */
@@ -447,7 +469,8 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
-
+        
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar BarraTemperatura;
@@ -458,6 +481,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton BtnControleManual;
     private javax.swing.JButton BtnSair;
     private javax.swing.JButton BtnSobre;
+    private javax.swing.JLabel LabelCulturaAtiva;
     private javax.swing.JLabel LabelStatus;
     private javax.swing.JLabel LabelTemp;
     private javax.swing.JLabel LabelTemperatura;
@@ -471,6 +495,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -480,9 +505,11 @@ public class Principal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public class updateView extends Thread {
+        int UmidadeMinima;
         public void run() {
             while (true) {
                 try {
+                    
                     Thread.sleep(1000);
                     ConsomeArduinoDAO Consome = new ConsomeArduinoDAO();
                     BarraUmidadeSolo.setValue((int) Math.round(Consome.getUmidadeSolo()));
@@ -491,33 +518,77 @@ public class Principal extends javax.swing.JFrame {
                     LabelTemperatura.setText(Consome.getTemperatura() + "ºC");
                     LabelUmidadeAmbiente.setText(Consome.getUmidadeAmbiente() + "%");
                     LabelUmidadeSolo.setText(Consome.getUmidadeSolo() + "%");
-                    if(Consome.getStatus() == 1){
+                    if (Consome.getStatus() == 1) {
                         BtnControleManual.setEnabled(true);
                         LabelStatus.setForeground(Color.GREEN);
                         LabelStatus.setText("OK");
-                        
-                    }else if(Consome.getStatus() == 2){
+
+                    } else if (Consome.getStatus() == 2) {
                         BtnControleManual.setEnabled(false);
                         LabelStatus.setForeground(Color.red);
                         LabelStatus.setText("Erro ao comunicar-se com o Arduino");
-                        
+
                     }
-                    if(Consome.getLogArduino() == 1){
+                    if (Consome.getLogArduino() == 1) {
                         BtnControleManual.setEnabled(false);
                         LabelStatus.setForeground(Color.red);
                         LabelStatus.setText("Erro no sensor de umidade/temperatura");
-                    }else if(Consome.getLogArduino() == 2){
+                    } else if (Consome.getLogArduino() == 2) {
                         BtnControleManual.setEnabled(false);
                         LabelStatus.setForeground(Color.red);
                         LabelStatus.setText("Erro no sensor de umidade do solo");
                     }
+                    LabelCulturaAtiva.setText(this.getCulturaAtiva());
+                    //if(Consome.getUmidadeSolo() <)
                 } catch (IOException ex) {
                     System.out.println(ex.getMessage());
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
             }
 
         }
+        public void setCulturaAtiva(String culturaAtiva) {
+            CulturaAtiva = culturaAtiva;
+        }
+        public String getCulturaAtiva(){
+            return CulturaAtiva;
+        }
+        
+
     };
+
+    public class VerificaUmidadeMinimaEFrequencia extends Thread {
+        int UmidadeMinima;
+        public void run() {
+            while (true) {
+                ConsomeArduinoDAO Consome;
+                try {
+                    Consome = new ConsomeArduinoDAO();
+                    if (Consome.getUmidadeSolo() < this.UmidadeMinima) {
+                        ControleIrrigacao AtivaIrrigacao = new ControleIrrigacao();
+                        JOptionPane.showMessageDialog(null, "Ativou a irrigação, esperando 15 segundos");
+                        //AtivaIrrigacao.AtivaDispersao("Agua", "/On");
+                        Thread.sleep(15000);
+                        JOptionPane.showMessageDialog(null, "Desativando ");
+                        //AtivaIrrigacao.AtivaDispersao("Agua", "/Off");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+        public void setUmidadeMinima(int UmidMin) {
+            
+        }
+
+        public int getUmidadeMinima() {
+            return UmidadeMinima;
+        }
+
+    }
 }

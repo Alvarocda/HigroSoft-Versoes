@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class AutenticaLogin extends javax.swing.JFrame {
 
     UsuarioDAO autenticacao = new UsuarioDAO();
-    
+    private static String Usuario;
     public AutenticaLogin() {
         initComponents();
         
@@ -180,14 +180,15 @@ public class AutenticaLogin extends javax.swing.JFrame {
         if ((TxtEmail.getText().isEmpty()) && (TxtSenha.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos");
         } else {
+            Usuario = this.TxtEmail.getText();
+            new CadastroDeCulturas().setUsuario(this.getUsuario());
             autenticacao.Autenticacao(TxtEmail.getText(), TxtSenha.getText());
             this.dispose();
-
         }
     }
-
-    /**
-     */
+    public String getUsuario(){
+        return Usuario;
+    }
     public void Autentica() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

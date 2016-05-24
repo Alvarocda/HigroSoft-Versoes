@@ -16,9 +16,11 @@ import javax.swing.JOptionPane;
  * @author Alvaro
  */
 public class CadastroDeCulturas extends javax.swing.JFrame {
-
-    int UmidadeMinima;
-    String NomeDaCultura;
+    private static String Usuario;
+    private String FrequenciaAgua;
+    private String FrequenciaFertilizante;
+    private int UmidadeMinima;
+    private String NomeDaCultura;
     CulturaDAO GravaNovaCultura = new CulturaDAO();
     
     
@@ -98,7 +100,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Cadastro de Cultura");
 
@@ -155,7 +157,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
                         .addComponent(ComboBoxFertilizante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel12)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,16 +219,17 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(TxtNomeDaCultura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(TxtUmidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel7))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(TxtUmidadeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -263,7 +266,6 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BtnCancelarActionPerformed
     public void ValidaEntrada() throws SQLException, NumberFormatException {
-        TelaCulturas teste = new TelaCulturas();
         try {
             UmidadeMinima = Integer.parseInt(this.TxtUmidadeMinima.getText()); //Verifica se o valor do TEXTFIELD UmidadeMinima é um numero inteiro
             if (this.TxtNomeDaCultura.getText().isEmpty() || this.TxtUmidadeMinima.getText().isEmpty()) { //Verifica se os campos estão vazios
@@ -273,14 +275,22 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
             } else { //Caso todos os dados estejam corretos, registra a cultura no banco
                 NomeDaCultura = this.TxtNomeDaCultura.getText();
                 UmidadeMinima = Integer.parseInt(this.TxtUmidadeMinima.getText());
-                GravaNovaCultura.GravaCultura(NomeDaCultura, UmidadeMinima);
-                teste.AtualizaTabela();
+                FrequenciaAgua = ComboBoxAgua.getSelectedItem().toString();
+                FrequenciaFertilizante = ComboBoxFertilizante.getSelectedItem().toString();
+                GravaNovaCultura.GravaCultura(NomeDaCultura, UmidadeMinima, FrequenciaAgua, FrequenciaFertilizante, this.getUsuario());
+                new TelaCulturas().repaint();
                 this.dispose();
                 
             }
         } catch (NumberFormatException e) { //Caso o valor inserido no TEXTFIELD UmidadeMinima não seja um numero inteiro, exibe o erro abaixo
             JOptionPane.showMessageDialog(null, "Por favor, preencha o campo de umidade minima e use apenas numeros");
         }
+    }
+    public void setUsuario(String usuario){
+        Usuario = usuario;
+    }
+    public String getUsuario(){
+        return Usuario;
     }
 
     /**
