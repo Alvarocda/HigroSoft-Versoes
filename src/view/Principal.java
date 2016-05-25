@@ -18,10 +18,10 @@ public class Principal extends javax.swing.JFrame {
 
     ConfirmaSaida Saida = new ConfirmaSaida();
     private static String CulturaAtiva;
+
     public Principal() {
-        new updateView().start();
-        new VerificaUmidadeMinimaEFrequencia().start();
         initComponents();
+        new updateView().start();
     }
 
     @SuppressWarnings("unchecked")
@@ -469,8 +469,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
-        
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar BarraTemperatura;
@@ -505,11 +504,13 @@ public class Principal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public class updateView extends Thread {
+
         int UmidadeMinima;
+
+        @Override
         public void run() {
             while (true) {
                 try {
-                    
                     Thread.sleep(1000);
                     ConsomeArduinoDAO Consome = new ConsomeArduinoDAO();
                     BarraUmidadeSolo.setValue((int) Math.round(Consome.getUmidadeSolo()));
@@ -538,57 +539,25 @@ public class Principal extends javax.swing.JFrame {
                         LabelStatus.setForeground(Color.red);
                         LabelStatus.setText("Erro no sensor de umidade do solo");
                     }
-                    LabelCulturaAtiva.setText(this.getCulturaAtiva());
+                    LabelCulturaAtiva.setText(this.getLabelCulturaAtiva());
                     //if(Consome.getUmidadeSolo() <)
                 } catch (IOException ex) {
                     System.out.println(ex.getMessage());
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
             }
 
         }
-        public void setCulturaAtiva(String culturaAtiva) {
-            CulturaAtiva = culturaAtiva;
+
+        public void setLabelCulturaAtiva(String CultAtiva) {
+            CulturaAtiva = CultAtiva;            
         }
-        public String getCulturaAtiva(){
+
+        public String getLabelCulturaAtiva() {
             return CulturaAtiva;
         }
-        
+    };   
 
-    };
-
-    public class VerificaUmidadeMinimaEFrequencia extends Thread {
-        int UmidadeMinima;
-        public void run() {
-            while (true) {
-                ConsomeArduinoDAO Consome;
-                try {
-                    Consome = new ConsomeArduinoDAO();
-                    if (Consome.getUmidadeSolo() < this.UmidadeMinima) {
-                        ControleIrrigacao AtivaIrrigacao = new ControleIrrigacao();
-                        JOptionPane.showMessageDialog(null, "Ativou a irrigação, esperando 15 segundos");
-                        //AtivaIrrigacao.AtivaDispersao("Agua", "/On");
-                        Thread.sleep(15000);
-                        JOptionPane.showMessageDialog(null, "Desativando ");
-                        //AtivaIrrigacao.AtivaDispersao("Agua", "/Off");
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-        public void setUmidadeMinima(int UmidMin) {
-            
-        }
-
-        public int getUmidadeMinima() {
-            return UmidadeMinima;
-        }
-
-    }
 }

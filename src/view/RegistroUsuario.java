@@ -184,7 +184,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
         });
     }
     public void VerificaCampos() throws SQLException{
-        if((TxtNovoEmail.getText().isEmpty()) && (TxtNovaSenha.getText().isEmpty())){
+        if((TxtNovoEmail.getText().isEmpty()) || (TxtNovaSenha.getText().isEmpty())){
             JOptionPane.showMessageDialog(null,"Por favor preencha todos os campos", "Erro", JOptionPane.ERROR_MESSAGE);
         }else {
             String emailPattern = "\\b(^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([A-Za-z0-9-])+(\\.[A-Za-z0-9-]+)*((\\.[A-Za-z0-9]{2,})|(\\.[A-Za-z0-9]{2,}\\.[A-Za-z0-9]{2,}))$)\\b";

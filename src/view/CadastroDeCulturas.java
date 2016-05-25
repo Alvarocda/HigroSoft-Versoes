@@ -105,7 +105,7 @@ public class CadastroDeCulturas extends javax.swing.JFrame {
         jLabel4.setText("Cadastro de Cultura");
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/question.png"))); // NOI18N
-        jLabel7.setToolTipText("<HTML>\n<HEAD>\n</HEAD>\n<b>Umidade Minima:</b> Caso o software perceba que a <br>\numidade dentro da estufa ficou menor que o especificado<br>\nele automaticamente ira acionar a dispersão de agua.<br>\n<br>\n<b>Frequëncia de irrigação:</b> O Software ira acionar a dispersão<br>\nautomaticamente de acordo com o horario selecionado.<br>\n<br>\nO Software ira acionar a dispersão se algumas das condições<br>\nacima descritas acontecerem, independente de qual acontece primeiro.\n</BODY>\n</HTML>");
+        jLabel7.setToolTipText("<HTML>\n<HEAD>\n</HEAD>\n<b>Umidade Minima:</b> Caso o software perceba que a <br>\numidade dentro da estufa ficou menor que o especificado<br>\nele automaticamente ira acionar a dispersão de agua.<br>\n<br>\n<b>Frequëncia de irrigação:</b> O Software ira acionar a dispersão<br>\nautomaticamente de acordo com o horario selecionado.<br>\n<br>\n<b>ATENÇÃO: </b> A frequëncia só ira funcionar durante o periodo<br>\nagendado na tela de agendamento de irrigação.<br>\n<br>\nPor padrão, o software acionara a dispersão automatica de acordo com a<br>\n<b>umidade minima</b> especificada durante o registro da cultura.\n\n</BODY>\n</HTML>");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Frequëncia de Irrigação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 18))); // NOI18N

@@ -182,6 +182,7 @@ public class AutenticaLogin extends javax.swing.JFrame {
         } else {
             Usuario = this.TxtEmail.getText();
             new CadastroDeCulturas().setUsuario(this.getUsuario());
+            new ViewAgendamentoIrrigacao().setUsuario(Usuario);
             autenticacao.Autenticacao(TxtEmail.getText(), TxtSenha.getText());
             this.dispose();
         }
