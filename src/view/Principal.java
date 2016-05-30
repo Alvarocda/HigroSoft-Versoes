@@ -88,7 +88,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel4.setText("Temperatura");
 
         BarraTemperatura.setBackground(new java.awt.Color(255, 255, 255));
-        BarraTemperatura.setForeground(Color.RED);
+        BarraTemperatura.setForeground(new java.awt.Color(255, 65, 17));
         BarraTemperatura.setOrientation(1);
         BarraTemperatura.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         BarraTemperatura.setEnabled(false);
@@ -140,7 +140,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setText("Umidade Ambiente");
 
         BarraUmidade.setBackground(new java.awt.Color(255, 255, 255));
-        BarraUmidade.setForeground(new java.awt.Color(51, 102, 255));
+        BarraUmidade.setForeground(new java.awt.Color(50, 179, 193));
         BarraUmidade.setOrientation(1);
         BarraUmidade.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         BarraUmidade.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -234,7 +234,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel8.setText("Umidade do Solo");
 
         BarraUmidadeSolo.setBackground(new java.awt.Color(255, 255, 255));
-        BarraUmidadeSolo.setForeground(new java.awt.Color(116, 71, 29));
+        BarraUmidadeSolo.setForeground(new java.awt.Color(139, 88, 42));
         BarraUmidadeSolo.setOrientation(1);
         BarraUmidadeSolo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         BarraUmidadeSolo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

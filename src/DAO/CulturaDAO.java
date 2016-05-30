@@ -76,11 +76,11 @@ public class CulturaDAO {
          JOptionPane.showMessageDialog(null, "Erro ao deletar cultura");
         }        
     }
-    public void insereAgendamento(String UsuarioQueAgendou,int id_da_cultura, int diaInicial, int mesInicial, int diaFinal, int mesFinal) throws SQLException{
+    public void insereAgendamento(String UsuarioQueAgendou,int id_da_cultura, int diaInicial, int mesInicial,int anoInicial, int diaFinal, int mesFinal, int anoFinal) throws SQLException{
         try{
             Statement stmt = this.conexao.Conecta().createStatement();
-            String sql = "INSERT INTO agendamentos(id_cultura_agendada,dia_inicial,mes_inicial,dia_final,mes_final,usuario_que_agendou) "
-                    + "VALUES('"+id_da_cultura+"','"+diaInicial+"','"+mesInicial+"','"+diaFinal+"','"+mesFinal+"','"+UsuarioQueAgendou+"')";
+            String sql = "INSERT INTO agendamentos(id_cultura_agendada,dia_inicial,mes_inicial,dia_final,mes_final,usuario_que_agendou,ano_inicial,ano_final) "
+                    + "VALUES('"+id_da_cultura+"','"+diaInicial+"','"+mesInicial+"','"+diaFinal+"','"+mesFinal+"','"+UsuarioQueAgendou+"','"+anoInicial+"','"+anoFinal+"')";
             stmt.executeUpdate(sql);
             this.conexao.Conecta().close();
             JOptionPane.showMessageDialog(null, "Agendamento registrado com sucesso!");
