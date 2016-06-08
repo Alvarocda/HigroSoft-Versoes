@@ -21,7 +21,9 @@ public class TelaCulturas extends javax.swing.JFrame {
 
     private static String CulturaAtiva;
     private int UmidadeMinima;
-    private int id;
+    private int idCultura;
+    private static String UsuarioQueRegistrou;
+    
     CulturaDAO Conexao = new CulturaDAO();
 
     public TelaCulturas() throws SQLException {        
@@ -312,7 +314,7 @@ public class TelaCulturas extends javax.swing.JFrame {
                 if (UmidadeMinima > 100 || UmidadeMinima <= 0) {
                     JOptionPane.showMessageDialog(null, "Por favor, preencha apenas com numeros de 1 a 100");
                 } else {
-                    Conexao.AtualizaCultura(id, this.TxtNomeDaCultura.getText(), Integer.parseInt(this.TxtUmidadeMinima.getText()));
+                    Conexao.AtualizaCultura(idCultura, this.TxtNomeDaCultura.getText(), Integer.parseInt(this.TxtUmidadeMinima.getText()));
                     TxtNomeDaCultura.setText("");
                     TxtUmidadeMinima.setText("");
                     this.AtualizaTabela();
@@ -327,19 +329,22 @@ public class TelaCulturas extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnAlterarCulturaActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        id = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        idCultura = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
         this.TxtNomeDaCultura.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
         this.TxtUmidadeMinima.setText((jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString()));
         
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void BtnSelecionaCulturaComoAtivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSelecionaCulturaComoAtivaActionPerformed
-        try {
+        try {            
             Principal principal = new Principal();
+            AutenticaLogin PegaUsuarioQueAtivou = new AutenticaLogin();
             Principal.updateView SetaLabelCulturaAtiva = principal.new updateView();
             CulturaAtiva = this.TxtNomeDaCultura.getText();
             SetaLabelCulturaAtiva.setLabelCulturaAtiva(CulturaAtiva);
             BtnAgendarIrrigacao.setEnabled(true);
+            idCultura = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+            Conexao.RegistraCulturaAtiva(idCultura, getUsuarioQueRegistrou());            
         } catch (SQLException ex) {
             Logger.getLogger(TelaCulturas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -348,7 +353,7 @@ public class TelaCulturas extends javax.swing.JFrame {
     private void BtnAgendarIrrigacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgendarIrrigacaoActionPerformed
         ViewAgendamentoIrrigacao TelaDeAgendamento = new ViewAgendamentoIrrigacao();
         TelaDeAgendamento.setNomeCultura(CulturaAtiva);
-        TelaDeAgendamento.setID(id);
+        TelaDeAgendamento.setID(idCultura);
         TelaDeAgendamento.AtualizaLabelCulturaAtiva();
         TelaDeAgendamento.setVisible(true);       
     }//GEN-LAST:event_BtnAgendarIrrigacaoActionPerformed
@@ -397,6 +402,16 @@ public class TelaCulturas extends javax.swing.JFrame {
             }
         });
     }
+
+    public static String getUsuarioQueRegistrou() {
+        return UsuarioQueRegistrou;
+    }
+
+    public void setUsuarioQueRegistrou(String UsuarioQueRegistrou) {
+        TelaCulturas.UsuarioQueRegistrou = UsuarioQueRegistrou;
+    }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAgendarIrrigacao;

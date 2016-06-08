@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import view.TelaCulturas;
 
 public class CulturaDAO {
-    private int idCulturaAgendada,diainicial,mesinicial,anoinicial,diafinal,mesfinal,anofinal,emAndamento;
+    private int idCulturaAgendada,diainicial,mesinicial,anoinicial,diafinal,mesfinal,anofinal,emAndamento,freqAgua,freqFert;
     private int idCulturaAtiva,status;
     String nomeDaCulturaAtiva;
     EntidadeConexao conexao = new EntidadeConexao();
@@ -107,12 +107,34 @@ public class CulturaDAO {
             
         }
     }
+    public void RegistraCulturaAtiva(int id_cultura_ativa, String usuario_que_agendou){
+        try{
+            Statement stmt = conexao.Conecta().createStatement();
+            String sql = "INSERT INTO culturas_ativas(id_cultura_ativa,id_usuario_que_ativou_status) VALUES('"+id_cultura_ativa+"','"+usuario_que_agendou+"','1')";
+            stmt.executeUpdate(sql);
+            conexao.Conecta().close();
+            JOptionPane.showMessageDialog(null, "Cultura ativada com sucesso!");
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Falha ao ativar cultura(SQL)");
+        }
+    }
+    public void RegistraCulturaDesativada(int id_cultura){
+        try{
+            Statement stmt = conexao.Conecta().createStatement();
+            String sql = "UPDATE culturas_ativas SET status ='0' WHERE id_cultura_ativa = '"+id_cultura+"'";
+            stmt.executeUpdate(sql);
+            conexao.Conecta().close();
+            JOptionPane.showMessageDialog(null, "Cultura ativada com sucesso!");
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Falha ao ativar cultura(SQL)");
+        }
+    }
 
     public void retornaInformacoesDoAgendamento(){
         try{
             
             Statement stmt = conexao.Conecta().createStatement();
-            String sql = "SELECT id_cultura_agendada,dia_inicial,mes_inicial,ano_inicial,dia_final,mes_final,ano_final,em_andamento FROM agendamentos WHERE em_adamento= '1'";
+            String sql = "SELECT id_cultura_agendada,dia_inicial,mes_inicial,ano_inicial,dia_final,mes_final,ano_final,em_andamento,frequencia_agua,frequencia_fertilizante FROM agendamentos,culturas WHERE em_adamento= '1' and id_cultura_agendada = id_cultura";
             ResultSet rset = stmt.executeQuery(sql);
             while(rset.first()){
                 idCulturaAgendada = rset.getInt(1);
@@ -123,10 +145,29 @@ public class CulturaDAO {
                 mesfinal          = rset.getInt(6);
                 anofinal          = rset.getInt(7);
                 emAndamento       = rset.getInt(8);
+                freqAgua          = rset.getInt(9);
+                freqFert          = rset.getInt(10);
             }
+            conexao.Conecta().close();
         }catch(SQLException e){
             
         }
+    }
+
+    public int getFreqAgua() {
+        return freqAgua;
+    }
+
+    public void setFreqAgua(int freqAgua) {
+        this.freqAgua = freqAgua;
+    }
+
+    public int getFreqFert() {
+        return freqFert;
+    }
+
+    public void setFreqFert(int freqFert) {
+        this.freqFert = freqFert;
     }
 
     public int getIdCulturaAtiva() {

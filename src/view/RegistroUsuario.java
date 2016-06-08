@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class RegistroUsuario extends javax.swing.JFrame {
 
-    Principal ViewPrincipal = new Principal();
+    
     public RegistroUsuario() {
         initComponents();
     }
@@ -145,8 +145,12 @@ public class RegistroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-        new Principal().setEnabled(true);
-        this.dispose();
+        try {
+            new Principal().setEnabled(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
     /**
