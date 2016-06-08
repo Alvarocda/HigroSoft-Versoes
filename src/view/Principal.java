@@ -5,8 +5,10 @@
  */
 package view;
 
+import Controller.VerificaDataAtual;
 import DAO.ConsomeArduinoDAO;
 import DAO.ControleIrrigacao;
+import DAO.CulturaDAO;
 import java.awt.Color;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,10 +20,22 @@ public class Principal extends javax.swing.JFrame {
 
     ConfirmaSaida Saida = new ConfirmaSaida();
     private static String CulturaAtiva;
+    private static String CulturaAtivaInicial;
 
-    public Principal() {
-        initComponents();
+    public Principal()throws SQLException {
+        initComponents();        
+        CulturaDAO retornaCulturaAtivaEAgendamentos = new CulturaDAO();
+        retornaCulturaAtivaEAgendamentos.retornaCulturaAtiva();
+        retornaCulturaAtivaEAgendamentos.retornaInformacoesDoAgendamento();
+        CulturaAtivaInicial = retornaCulturaAtivaEAgendamentos.getNomeDaCulturaAtiva();
+        if(CulturaAtivaInicial != null){
+            LabelCulturaAtiva.setText(CulturaAtivaInicial);
+        }else{
+            LabelCulturaAtiva.setText("Nenhuma cultura esta ativa!");
+        }
+        
         new updateView().start();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -57,6 +71,7 @@ public class Principal extends javax.swing.JFrame {
         BtnAbreTelaCulturas = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         LabelCulturaAtiva = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setTitle("HigroSoft");
         setBackground(new java.awt.Color(255, 255, 255));
@@ -318,6 +333,13 @@ public class Principal extends javax.swing.JFrame {
         LabelCulturaAtiva.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         LabelCulturaAtiva.setText("Nenhuma");
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -332,6 +354,8 @@ public class Principal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(BtnAbreTelaCulturas)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(BtnControleManual)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(BtnSobre)
@@ -362,13 +386,18 @@ public class Principal extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BtnAddUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                    .addComponent(BtnSobre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnControleManual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnAbreTelaCulturas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BtnAddUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                            .addComponent(BtnSobre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnControleManual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnAbreTelaCulturas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jButton1)))
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -436,6 +465,10 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnAbreTelaCulturasActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new CulturaDAO().retornaCulturaAtiva();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
 
         /* Set the Nimbus look and feel */
@@ -464,8 +497,12 @@ public class Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Principal principal = new Principal();
-                principal.setVisible(true);
+                try {
+                    //Principal principal = new Principal();
+                    new Principal().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -488,6 +525,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel LabelUmid1;
     private javax.swing.JLabel LabelUmidadeAmbiente;
     private javax.swing.JLabel LabelUmidadeSolo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -552,12 +590,30 @@ public class Principal extends javax.swing.JFrame {
         }
 
         public void setLabelCulturaAtiva(String CultAtiva) {
-            CulturaAtiva = CultAtiva;            
+            CulturaAtiva = CultAtiva;
         }
 
         public String getLabelCulturaAtiva() {
             return CulturaAtiva;
         }
-    };   
+    };
+
+    public class VerificaSeEPrecisoAtivarAIrrigacaoPorAgendamento extends Thread {
+        private int DiaAtual,MesAtual,AnoAtual,HoraAtual,MinutoAtual;
+        VerificaDataAtual VerificaData = new VerificaDataAtual();
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(60000);
+                    DiaAtual = VerificaData.getDiaAtual();
+                    MesAtual = VerificaData.getMesAtual();
+                    
+
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
 
 }

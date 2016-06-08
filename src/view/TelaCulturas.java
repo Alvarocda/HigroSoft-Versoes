@@ -57,6 +57,7 @@ public class TelaCulturas extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         BtnAgendarIrrigacao = new javax.swing.JButton();
         BtnSelecionaCulturaComoAtiva = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerenciamento de culturas");
@@ -145,7 +146,7 @@ public class TelaCulturas extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/question.png"))); // NOI18N
-        jLabel4.setToolTipText("<HTML>\n<HEAD>\n</HEAD>\nPara remover uma cultura, basta seleciona-la na tabela ao lado e clicar na opão \"Remover Cultura\".<br>\nPara alterar uma uma cultura, basta seleciona-la na tabela ao lado, e usar os campos acima para mudar<br> \no nome e umidade minima, depois, clique na opção \"Alterar Cultura\" para altera-la\n</BODY>\n</HTML>");
+        jLabel4.setToolTipText("<HTML>\n<HEAD>\n</HEAD>\nPara remover uma cultura, basta seleciona-la na tabela ao lado e clicar na opção \"Remover Cultura\".<br>\nPara alterar uma uma cultura, basta seleciona-la na tabela ao lado, e usar os campos acima para mudar<br> \no nome e umidade minima, depois, clique na opção \"Alterar Cultura\" para altera-la\n</BODY>\n</HTML>");
 
         TxtNomeDaCultura.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
@@ -175,12 +176,16 @@ public class TelaCulturas extends javax.swing.JFrame {
 
         BtnSelecionaCulturaComoAtiva.setBackground(new java.awt.Color(255, 255, 255));
         BtnSelecionaCulturaComoAtiva.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        BtnSelecionaCulturaComoAtiva.setText("<HTML>\n<HEAD>\n</HEAD>\n<center>\nSelecionar<br>\ncomo ativa\n</center>\n</BODY>\n</HTML>");
+        BtnSelecionaCulturaComoAtiva.setText("<HTML> <HEAD> </HEAD> <center>Selecionar<br>cultura como ativa</center> </BODY> </HTML>");
         BtnSelecionaCulturaComoAtiva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnSelecionaCulturaComoAtivaActionPerformed(evt);
             }
         });
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton1.setText("<HTML> <HEAD> </HEAD> <center>Desativar<br>Cultura</center> </BODY> </HTML>");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -221,8 +226,10 @@ public class TelaCulturas extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addComponent(BtnSelecionaCulturaComoAtiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(113, 113, 113)
+                        .addComponent(BtnSelecionaCulturaComoAtiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -249,7 +256,9 @@ public class TelaCulturas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BtnSelecionaCulturaComoAtiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnSelecionaCulturaComoAtiva))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -269,7 +278,12 @@ public class TelaCulturas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnCadastrarCulturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCadastrarCulturaActionPerformed
-        new CadastroDeCulturas().setVisible(true);
+        try {
+            new CadastroDeCulturas().setVisible(true);
+            this.AtualizaTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaCulturas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnCadastrarCulturaActionPerformed
 
     private void BtnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVoltarActionPerformed
@@ -320,11 +334,15 @@ public class TelaCulturas extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void BtnSelecionaCulturaComoAtivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSelecionaCulturaComoAtivaActionPerformed
-        Principal principal = new Principal();
-        Principal.updateView SetaLabelCulturaAtiva = principal.new updateView();
-        CulturaAtiva = this.TxtNomeDaCultura.getText();
-        SetaLabelCulturaAtiva.setLabelCulturaAtiva(CulturaAtiva);
-        BtnAgendarIrrigacao.setEnabled(true);
+        try {
+            Principal principal = new Principal();
+            Principal.updateView SetaLabelCulturaAtiva = principal.new updateView();
+            CulturaAtiva = this.TxtNomeDaCultura.getText();
+            SetaLabelCulturaAtiva.setLabelCulturaAtiva(CulturaAtiva);
+            BtnAgendarIrrigacao.setEnabled(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaCulturas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnSelecionaCulturaComoAtivaActionPerformed
 
     private void BtnAgendarIrrigacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgendarIrrigacaoActionPerformed
@@ -389,6 +407,7 @@ public class TelaCulturas extends javax.swing.JFrame {
     private javax.swing.JButton BtnVoltar;
     private javax.swing.JTextField TxtNomeDaCultura;
     private javax.swing.JTextField TxtUmidadeMinima;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
