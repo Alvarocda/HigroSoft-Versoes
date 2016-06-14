@@ -145,12 +145,9 @@ public class RegistroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-        try {
             new Principal().setEnabled(true);
             this.dispose();
-        } catch (SQLException ex) {
-            Logger.getLogger(RegistroUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
     /**

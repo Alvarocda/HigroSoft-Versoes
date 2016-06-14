@@ -19,11 +19,9 @@ import view.Principal.updateView;
  */
 public class TelaCulturas extends javax.swing.JFrame {
 
-    private static String CulturaAtiva;
-    private int UmidadeMinima;
-    private int idCultura;
-    private static String UsuarioQueRegistrou;
-    
+    private static String CulturaAtiva;    
+    private int idCulturaSelecionada;//, idCulturaCarregada;    
+    private static String UsuarioQueRegistrou;    
     CulturaDAO Conexao = new CulturaDAO();
 
     public TelaCulturas() throws SQLException {        
@@ -32,6 +30,7 @@ public class TelaCulturas extends javax.swing.JFrame {
         if(CulturaAtiva == "" || CulturaAtiva == null){
             BtnAgendarIrrigacao.setEnabled(false);
         }
+        
     }
 
     /**
@@ -59,7 +58,6 @@ public class TelaCulturas extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         BtnAgendarIrrigacao = new javax.swing.JButton();
         BtnSelecionaCulturaComoAtiva = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerenciamento de culturas");
@@ -185,10 +183,6 @@ public class TelaCulturas extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jButton1.setText("<HTML> <HEAD> </HEAD> <center>Desativar<br>Cultura</center> </BODY> </HTML>");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -228,10 +222,8 @@ public class TelaCulturas extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(BtnSelecionaCulturaComoAtiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(169, 169, 169)
+                        .addComponent(BtnSelecionaCulturaComoAtiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -258,9 +250,7 @@ public class TelaCulturas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnSelecionaCulturaComoAtiva))
+                .addComponent(BtnSelecionaCulturaComoAtiva)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -285,10 +275,13 @@ public class TelaCulturas extends javax.swing.JFrame {
             this.AtualizaTabela();
         } catch (SQLException ex) {
             Logger.getLogger(TelaCulturas.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            
         }
     }//GEN-LAST:event_BtnCadastrarCulturaActionPerformed
 
     private void BtnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVoltarActionPerformed
+        Conexao.FechaTodasConexoes();
         this.dispose();
     }//GEN-LAST:event_BtnVoltarActionPerformed
 
@@ -314,7 +307,7 @@ public class TelaCulturas extends javax.swing.JFrame {
                 if (UmidadeMinima > 100 || UmidadeMinima <= 0) {
                     JOptionPane.showMessageDialog(null, "Por favor, preencha apenas com numeros de 1 a 100");
                 } else {
-                    Conexao.AtualizaCultura(idCultura, this.TxtNomeDaCultura.getText(), Integer.parseInt(this.TxtUmidadeMinima.getText()));
+                    Conexao.AtualizaCultura(idCulturaSelecionada, this.TxtNomeDaCultura.getText(), Integer.parseInt(this.TxtUmidadeMinima.getText()));
                     TxtNomeDaCultura.setText("");
                     TxtUmidadeMinima.setText("");
                     this.AtualizaTabela();
@@ -329,31 +322,34 @@ public class TelaCulturas extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnAlterarCulturaActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        idCultura = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        idCulturaSelecionada = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
         this.TxtNomeDaCultura.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
         this.TxtUmidadeMinima.setText((jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString()));
         
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void BtnSelecionaCulturaComoAtivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSelecionaCulturaComoAtivaActionPerformed
-        try {            
-            Principal principal = new Principal();
-            AutenticaLogin PegaUsuarioQueAtivou = new AutenticaLogin();
+            Principal principal = new Principal();  
+            Principal.VerificaSeEPrecisoAtivarAIrrigacaoPorAgendamento setaFrequencias = principal.new VerificaSeEPrecisoAtivarAIrrigacaoPorAgendamento();
+            int FrequenciaAgua, FrequenciaFert;
+            FrequenciaAgua = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
+            setaFrequencias.setFrequenciaAgua(FrequenciaAgua);
+            FrequenciaFert = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
+            setaFrequencias.setFrequenciaFertilizante(FrequenciaFert);
+            System.out.println("AGUA:"+FrequenciaAgua+"\nFERT:"+FrequenciaFert);
             Principal.updateView SetaLabelCulturaAtiva = principal.new updateView();
             CulturaAtiva = this.TxtNomeDaCultura.getText();
+            System.out.println("");
             SetaLabelCulturaAtiva.setLabelCulturaAtiva(CulturaAtiva);
             BtnAgendarIrrigacao.setEnabled(true);
-            idCultura = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-            Conexao.RegistraCulturaAtiva(idCultura, getUsuarioQueRegistrou());            
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaCulturas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            idCulturaSelecionada = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());          
+        
     }//GEN-LAST:event_BtnSelecionaCulturaComoAtivaActionPerformed
 
     private void BtnAgendarIrrigacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgendarIrrigacaoActionPerformed
         ViewAgendamentoIrrigacao TelaDeAgendamento = new ViewAgendamentoIrrigacao();
         TelaDeAgendamento.setNomeCultura(CulturaAtiva);
-        TelaDeAgendamento.setID(idCultura);
+        TelaDeAgendamento.setID(idCulturaSelecionada);
         TelaDeAgendamento.AtualizaLabelCulturaAtiva();
         TelaDeAgendamento.setVisible(true);       
     }//GEN-LAST:event_BtnAgendarIrrigacaoActionPerformed
@@ -422,7 +418,6 @@ public class TelaCulturas extends javax.swing.JFrame {
     private javax.swing.JButton BtnVoltar;
     private javax.swing.JTextField TxtNomeDaCultura;
     private javax.swing.JTextField TxtUmidadeMinima;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

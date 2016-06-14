@@ -16,8 +16,8 @@ public class VerificaDataAtual {
         MesAtual = MesAtual + 1; //Segundo a documentação da classe Calendar do java, ele começa a contar os meses pelo numero 0, logo ao selecionar o mês de janeiro, ele retornava o numero 0
         AnoAtual = calendario.get(Calendar.YEAR);
         HoraAtual = calendario.get(Calendar.HOUR_OF_DAY);
-        MinutoAtual = calendario.get(Calendar.MINUTE);
-        JOptionPane.showMessageDialog(null, "Dia.:"+DiaAtual+"\nMês.:"+MesAtual+"\nAno.:"+AnoAtual+"\nHorario.:"+HoraAtual+":"+MinutoAtual);
+        //MinutoAtual = calendario.get(Calendar.MINUTE);
+        //JOptionPane.showMessageDialog(null, "Dia.:"+DiaAtual+"\nMês.:"+MesAtual+"\nAno.:"+AnoAtual+"\nHorario.:"+HoraAtual+":"+MinutoAtual);
         
                 
     }

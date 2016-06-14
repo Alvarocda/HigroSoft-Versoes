@@ -4,6 +4,8 @@ import model.EntidadeConexao;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import view.TelaCulturas;
@@ -67,15 +69,19 @@ public class CulturaDAO {
         }
     }
     public void DeletaCultura(int ID) throws SQLException{
-        String sql = "DELETE FROM culturas where id_cultura = '"+ID+"'";
+        String sql = "DELETE FROM agendamentos where id_cultura_agendada = '"+ID+"'";
+        String sql2 = "DELETE FROM culturas where id_cultura = '"+ID+"'";
         try{
         Statement stmt = conexao.Conecta().createStatement();
         stmt.execute(sql);
+        stmt.execute(sql2);
         conexao.Conecta().close();
         JOptionPane.showMessageDialog(null, "Cultura deletada com sucesso!");
         }catch(SQLException e){
          conexao.Conecta().close();
          JOptionPane.showMessageDialog(null, "Erro ao deletar cultura");
+         System.out.println(e.getMessage());
+         e.printStackTrace();
         }        
     }
     public void insereAgendamento(String UsuarioQueAgendou,int id_da_cultura, int diaInicial, int mesInicial,int anoInicial, int diaFinal, int mesFinal, int anoFinal) throws SQLException{
@@ -91,46 +97,51 @@ public class CulturaDAO {
             JOptionPane.showMessageDialog(null, "Falha ao agendar");
         }
     }
-    public void retornaCulturaAtiva(){
+    /*public void retornaCulturaAtiva()throws SQLException{
         try{
             Statement stmt = conexao.Conecta().createStatement();
             String sql = "SELECT id_cultura_ativa,status,nome_cultura FROM culturas,culturas_ativas WHERE id_cultura_ativa = id_cultura and status = '1'";
             ResultSet rset = stmt.executeQuery(sql);
             while(rset.next()){
-                idCulturaAtiva = rset.getInt(1);
-                status         = rset.getInt(2);
-                nomeDaCulturaAtiva  = rset.getString(3);
+                setIdCulturaAtiva(rset.getInt(1));
+                setStatus(rset.getInt(2));
+                setNomeDaCulturaAtiva(rset.getString(3));
             }
             conexao.Conecta().close();
             System.out.println(idCulturaAtiva+"\n"+status+"\n"+nomeDaCulturaAtiva);
         }catch(SQLException e){
-            
+            conexao.Conecta().close();
         }
-    }
-    public void RegistraCulturaAtiva(int id_cultura_ativa, String usuario_que_agendou){
+    }*/
+    /*public void RegistraCulturaAtiva(int id_cultura_ativa, String usuario_que_agendou)throws SQLException{
         try{
             Statement stmt = conexao.Conecta().createStatement();
-            String sql = "INSERT INTO culturas_ativas(id_cultura_ativa,id_usuario_que_ativou_status) VALUES('"+id_cultura_ativa+"','"+usuario_que_agendou+"','1')";
+            String sql = "INSERT INTO culturas_ativas(id_cultura_ativa,usuario_que_ativou,status) VALUES('"+id_cultura_ativa+"','"+usuario_que_agendou+"','1')";
             stmt.executeUpdate(sql);
             conexao.Conecta().close();
             JOptionPane.showMessageDialog(null, "Cultura ativada com sucesso!");
         }catch(SQLException e){
+            conexao.Conecta().close();
             JOptionPane.showMessageDialog(null, "Falha ao ativar cultura(SQL)");
+            System.out.println(""+e.getMessage());
         }
-    }
-    public void RegistraCulturaDesativada(int id_cultura){
+    }*/
+    /*public void RegistraCulturaDesativada(int id_cultura, String userQueDesativou)throws SQLException{
         try{
             Statement stmt = conexao.Conecta().createStatement();
             String sql = "UPDATE culturas_ativas SET status ='0' WHERE id_cultura_ativa = '"+id_cultura+"'";
-            stmt.executeUpdate(sql);
+            stmt.execute(sql);
             conexao.Conecta().close();
-            JOptionPane.showMessageDialog(null, "Cultura ativada com sucesso!");
+            JOptionPane.showMessageDialog(null, "Cultura desativada com sucesso!");
         }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Falha ao ativar cultura(SQL)");
+            conexao.Conecta().close();
+            JOptionPane.showMessageDialog(null, "Falha ao desativar cultura(SQL)");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-    }
+    }*/
 
-    public void retornaInformacoesDoAgendamento(){
+    /*public void retornaInformacoesDoAgendamento()throws SQLException{
         try{
             
             Statement stmt = conexao.Conecta().createStatement();
@@ -150,7 +161,14 @@ public class CulturaDAO {
             }
             conexao.Conecta().close();
         }catch(SQLException e){
-            
+            conexao.Conecta().close();
+        }
+    }*/
+    public void FechaTodasConexoes(){
+        try {
+            conexao.Conecta().close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CulturaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

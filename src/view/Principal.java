@@ -5,8 +5,10 @@
  */
 package view;
 
+import Controller.EnviaEmail;
 import Controller.VerificaDataAtual;
 import DAO.ConsomeArduinoDAO;
+import DAO.ControleIrrigacao;
 import DAO.CulturaDAO;
 import java.awt.Color;
 import java.io.IOException;
@@ -14,33 +16,18 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.apache.commons.mail.EmailException;
 
 public class Principal extends javax.swing.JFrame {
 
     ConfirmaSaida Saida = new ConfirmaSaida();
     private static String CulturaAtiva;
     private static String CulturaAtivaInicial;
-    private int status, emAndamento;
+    private static int FrequenciaAgua,FrequenciaFertilizante;
+    private int emAndamento;
 
-    public Principal()throws SQLException {
-        initComponents();        
-        CulturaDAO retornaCulturaAtivaEAgendamentos = new CulturaDAO();
-        retornaCulturaAtivaEAgendamentos.retornaCulturaAtiva();
-        retornaCulturaAtivaEAgendamentos.retornaInformacoesDoAgendamento();
-        CulturaAtivaInicial = retornaCulturaAtivaEAgendamentos.getNomeDaCulturaAtiva();
-        emAndamento = retornaCulturaAtivaEAgendamentos.getEmAndamento();
-        if(emAndamento == 1){
-            new VerificaSeEPrecisoAtivarAIrrigacaoPorAgendamento().start();
-        }
-        status = retornaCulturaAtivaEAgendamentos.getStatus();
-        if(CulturaAtivaInicial != null){
-            
-            LabelCulturaAtiva.setText(CulturaAtivaInicial);
-        }else{
-            LabelCulturaAtiva.setText("Nenhuma cultura esta ativa!");
-        }
-        
-        
+    public Principal(){
+        initComponents();                
         new updateView().start();
         
     }
@@ -362,7 +349,7 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(BtnAbreTelaCulturas)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(BtnControleManual)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(BtnSobre)
@@ -403,7 +390,7 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(BtnControleManual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BtnAbreTelaCulturas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                        .addGap(39, 39, 39)
                         .addComponent(jButton1)))
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -473,7 +460,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnAbreTelaCulturasActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new CulturaDAO().retornaCulturaAtiva();
+        EnviaEmail enviaEmail = new EnviaEmail();
+        enviaEmail.EnviaEmail();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
@@ -503,13 +491,10 @@ public class Principal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
+            public void run() {                
                     //Principal principal = new Principal();
                     new Principal().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
             }
         });
     }
@@ -607,52 +592,125 @@ public class Principal extends javax.swing.JFrame {
             return CulturaAtiva;
         }
     };
-
+    
     public class VerificaSeEPrecisoAtivarAIrrigacaoPorAgendamento extends Thread {
-        private int DiaAtual,MesAtual,AnoAtual,HoraAtual;
-        private int DiaInicial,MesInicial,AnoInicial,DiaFinal,MesFinal,AnoFinal;
-        private int FrequenciaAgua,FrequenciaFertilizante, proxIrrigacaoAgua,proxIrrigacaoFert;
+        private int DiaAtual,MesAtual,HoraAtual;
+        private int DiaInicial,MesInicial,DiaFinal,MesFinal;
+        private int proxIrrigacaoAgua,proxIrrigacaoFert;
+        
         CulturaDAO retornaInformacaoSobreAgendamento = new CulturaDAO();
         VerificaDataAtual VerificaData = new VerificaDataAtual();
+        ControleIrrigacao LigaDesligaBombas = new ControleIrrigacao();
         public void run() {
             VerificaData.PegaDataAtual();
-            FrequenciaAgua = retornaInformacaoSobreAgendamento.getFreqAgua();
-            FrequenciaFertilizante = retornaInformacaoSobreAgendamento.getFreqFert();
+            FrequenciaAgua = getFrequenciaAgua();
+            FrequenciaFertilizante = getFrequenciaFertilizante();
             proxIrrigacaoAgua = VerificaData.getHoraAtual() + FrequenciaAgua;
             proxIrrigacaoFert = VerificaData.getHoraAtual() + FrequenciaFertilizante;
+            DiaInicial  = getDiaInicial();
+            MesInicial  = getMesInicial();
+            DiaFinal    = getDiaFinal();
+            MesFinal    = getMesFinal();
+            System.out.println("Frequencia agua"+FrequenciaAgua+"\nFrequencia Fert"+FrequenciaFertilizante);
             while (true) {
                 try {
+                    System.out.println("Thread Startou");
                     Thread.sleep(60000);
                     VerificaData.PegaDataAtual();
+                    System.out.println("Esperou 1 minuto e pegou a data");
                     DiaAtual    = VerificaData.getDiaAtual();
+                    System.out.println("Pegou o dia atual "+DiaAtual);
                     MesAtual    = VerificaData.getMesAtual();
-                    AnoAtual    = VerificaData.getAnoAtual();
-                    HoraAtual   = VerificaData.getHoraAtual();                    
-                    DiaInicial  = retornaInformacaoSobreAgendamento.getDiainicial();
-                    MesInicial  = retornaInformacaoSobreAgendamento.getMesinicial();
-                    AnoInicial  = retornaInformacaoSobreAgendamento.getAnoinicial();
-                    DiaFinal    = retornaInformacaoSobreAgendamento.getDiafinal();
-                    MesFinal    = retornaInformacaoSobreAgendamento.getMesfinal();
-                    AnoFinal    = retornaInformacaoSobreAgendamento.getAnofinal();
+                    System.out.println("Pegou o mês atual "+MesAtual);
+                    HoraAtual   = VerificaData.getHoraAtual();
+                    System.out.println("Pegou a hora atual "+HoraAtual);
+                    System.out.println("Dia Atual.:"+DiaAtual+"\nMes Atual.:"+MesAtual+"\nHora Atual"+HoraAtual+"\nData Inicial da irrigação.:"+DiaInicial+"/"+MesInicial+"\nData final.:"+DiaFinal+"/"+MesFinal);
+                    System.out.println("Prox Irrigação de agua "+proxIrrigacaoAgua);
+                    System.out.println("Prox Irrigação de Fertilizante "+proxIrrigacaoFert);
                     if(DiaInicial >= DiaAtual && MesInicial >= MesAtual){
                         if(proxIrrigacaoAgua == HoraAtual){
-                            //chamar irrigação por agua
-                            Thread.sleep(15000);
                             proxIrrigacaoAgua = proxIrrigacaoAgua + FrequenciaAgua;
-                        }else if(proxIrrigacaoFert == HoraAtual){
-                            //chamar irrigação de fertilizante
+                            LigaDesligaBombas.AtivaDispersao("Agua", "/On");
+                            System.out.println("Ativou Agua");
                             Thread.sleep(15000);
+                            LigaDesligaBombas.AtivaDispersao("Agua", "/Off");
+                            System.out.println("Desativou Agua");
+                            
+                            if(proxIrrigacaoAgua > 24){
+                                proxIrrigacaoAgua = proxIrrigacaoAgua - 24;
+                            }
+                        }else if(proxIrrigacaoFert == HoraAtual){
                             proxIrrigacaoFert = proxIrrigacaoFert + FrequenciaFertilizante;
+                            LigaDesligaBombas.AtivaDispersao("Adubo", "/On");
+                            System.out.println("Ativou adubo");
+                            Thread.sleep(15000);
+                            LigaDesligaBombas.AtivaDispersao("Adubo", "/Off");
+                            System.out.println("Desativou adubo");
+                            
+                            if(proxIrrigacaoFert > 24){
+                                proxIrrigacaoFert = proxIrrigacaoFert - 24;
+                            }
                         }                        
                     }else if(DiaFinal <= DiaAtual && MesFinal <= MesAtual){
+                            Thread.currentThread().stop();
                             JOptionPane.showMessageDialog(null, "Agendamento terminou", "Agendamento Concluido",JOptionPane.INFORMATION_MESSAGE);
-                            new VerificaSeEPrecisoAtivarAIrrigacaoPorAgendamento().stop();
+                            
                     }
                 } catch (InterruptedException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
                     Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-    }
+
+        public int getDiaInicial() {
+            return DiaInicial;
+        }
+
+        public void setDiaInicial(int DiaInicial) {
+            this.DiaInicial = DiaInicial;
+        }
+
+        public int getMesInicial() {
+            return MesInicial;
+        }
+
+        public void setMesInicial(int MesInicial) {
+            this.MesInicial = MesInicial;
+        }
+
+        public int getDiaFinal() {
+            return DiaFinal;
+        }
+
+        public void setDiaFinal(int DiaFinal) {
+            this.DiaFinal = DiaFinal;
+        }
+
+        public int getMesFinal() {
+            return MesFinal;
+        }
+
+        public void setMesFinal(int MesFinal) {
+            this.MesFinal = MesFinal;
+        }
+
+        public int getFrequenciaAgua() {
+            return FrequenciaAgua;
+        }
+
+        public void setFrequenciaAgua(int FreqAgua) {
+            FrequenciaAgua = FreqAgua;
+        }
+
+        public int getFrequenciaFertilizante() {
+            return FrequenciaFertilizante;
+        }
+
+        public void setFrequenciaFertilizante(int FrequenciaFert) {
+            FrequenciaFertilizante = FrequenciaFert;
+        }
+    };
 
 }

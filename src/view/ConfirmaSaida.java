@@ -1,5 +1,9 @@
 package view;
 
+import DAO.CulturaDAO;
+
+
+
 public class ConfirmaSaida extends javax.swing.JFrame {
     public ConfirmaSaida() {
         initComponents();
@@ -70,6 +74,8 @@ public class ConfirmaSaida extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnNaoSairActionPerformed
 
     private void BtnSimSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimSairActionPerformed
+        CulturaDAO Conexao = new CulturaDAO();
+        Conexao.FechaTodasConexoes();
         System.exit(0);    
     }//GEN-LAST:event_BtnSimSairActionPerformed
 

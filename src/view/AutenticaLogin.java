@@ -1,5 +1,6 @@
 package view;
 
+import Controller.EnviaEmail;
 import DAO.UsuarioDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -182,8 +183,9 @@ public class AutenticaLogin extends javax.swing.JFrame {
         } else {
             Usuario = this.TxtEmail.getText();
             new CadastroDeCulturas().setUsuario(this.getUsuario());
-            new TelaCulturas().setUsuarioQueRegistrou(Usuario);            
-            new ViewAgendamentoIrrigacao().setUsuario(Usuario);            
+            new TelaCulturas().setUsuarioQueRegistrou(getUsuario());            
+            new ViewAgendamentoIrrigacao().setUsuario(getUsuario());  
+            new EnviaEmail().setEmailUsuarioAtivo(Usuario);
             autenticacao.Autenticacao(TxtEmail.getText(), TxtSenha.getText());
             this.dispose();
         }
