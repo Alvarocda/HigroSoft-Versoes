@@ -539,7 +539,7 @@ public class Principal extends javax.swing.JFrame {
     public class updateView extends Thread {
 
         int UmidadeMinima;
-
+        int tentativas = 1;
         @Override
         public void run() {
             while (true) {
@@ -572,6 +572,20 @@ public class Principal extends javax.swing.JFrame {
                         LabelStatus.setForeground(Color.red);
                         LabelStatus.setText("Erro no sensor de umidade do solo");
                     }
+                    if(Consome.getStatus() == 2 || Consome.getLogArduino() == 1 || Consome.getLogArduino() == 2){
+                        if(tentativas == 1){
+                            //new EnviaEmail().EnviaEmail();
+                            tentativas = tentativas + 1;
+                        }else{
+                            tentativas = tentativas + 1;
+                        }                        
+                    }else{
+                        tentativas = 1;
+                    }
+                    if(tentativas  == 1728){
+                        //new EnviaEmail().EnviaEmail();
+                        tentativas = 2;
+                    }
                     LabelCulturaAtiva.setText(this.getLabelCulturaAtiva());
                     //if(Consome.getUmidadeSolo() <)
                 } catch (IOException ex) {
@@ -579,7 +593,7 @@ public class Principal extends javax.swing.JFrame {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                System.out.println(tentativas);
             }
 
         }
@@ -652,7 +666,7 @@ public class Principal extends javax.swing.JFrame {
                             }
                         }                        
                     }else if(DiaFinal <= DiaAtual && MesFinal <= MesAtual){
-                            Thread.currentThread().stop();
+                            Thread.currentThread().interrupt();
                             JOptionPane.showMessageDialog(null, "Agendamento terminou", "Agendamento Concluido",JOptionPane.INFORMATION_MESSAGE);
                             
                     }

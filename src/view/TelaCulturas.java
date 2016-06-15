@@ -336,7 +336,7 @@ public class TelaCulturas extends javax.swing.JFrame {
             setaFrequencias.setFrequenciaAgua(FrequenciaAgua);
             FrequenciaFert = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
             setaFrequencias.setFrequenciaFertilizante(FrequenciaFert);
-            System.out.println("AGUA:"+FrequenciaAgua+"\nFERT:"+FrequenciaFert);
+            //System.out.println("AGUA:"+FrequenciaAgua+"\nFERT:"+FrequenciaFert);
             Principal.updateView SetaLabelCulturaAtiva = principal.new updateView();
             CulturaAtiva = this.TxtNomeDaCultura.getText();
             System.out.println("");
