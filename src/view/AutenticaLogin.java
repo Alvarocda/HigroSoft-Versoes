@@ -1,6 +1,10 @@
 package view;
 
+import Controller.EnviaEmail;
 import DAO.UsuarioDAO;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,14 +14,21 @@ import javax.swing.JOptionPane;
  *
  * @author Alvaro
  */
-public class AutenticaLogin extends javax.swing.JFrame {
+public class AutenticaLogin extends javax.swing.JFrame implements KeyListener {
 
     UsuarioDAO autenticacao = new UsuarioDAO();
-    
+    private static String Usuario;
     public AutenticaLogin() {
         initComponents();
+        setIcon();
+        addKeyListener(this);
+        TxtEmail.addKeyListener(this);
+        TxtSenha.addKeyListener(this);
         
         
+    }
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/view/img/icon2.png")));
     }
 
     /**
@@ -180,14 +191,18 @@ public class AutenticaLogin extends javax.swing.JFrame {
         if ((TxtEmail.getText().isEmpty()) && (TxtSenha.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos");
         } else {
+            Usuario = this.TxtEmail.getText();
+            new CadastroDeCulturas().setUsuario(this.getUsuario());
+            new TelaCulturas().setUsuarioQueRegistrou(getUsuario());            
+            new ViewAgendamentoIrrigacao().setUsuario(getUsuario());  
+            new EnviaEmail().setEmailUsuarioAtivo(Usuario);
             autenticacao.Autenticacao(TxtEmail.getText(), TxtSenha.getText());
             this.dispose();
-
         }
     }
-
-    /**
-     */
+    public String getUsuario(){
+        return Usuario;
+    }
     public void Autentica() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -234,6 +249,27 @@ public class AutenticaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            try {
+                ValidaCampos();
+            } catch (SQLException ex) {
+                Logger.getLogger(AutenticaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
+    }
 
     
 }

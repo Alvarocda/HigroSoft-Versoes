@@ -1,29 +1,62 @@
 package DAO;
-
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import static java.lang.Double.parseDouble;
-import static java.lang.Integer.parseInt;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
 
+
 public class ConsomeArduinoDAO {
 
-    private final String Endereco = "http://192.168.0.100/";
-    private double Temperatura;
-    private double UmidadeAmbiente;
-    private double UmidadeSolo;
+    private final String Endereco = "http://187.28.205.178";
+    private int Temperatura;
+    private int UmidadeAmbiente;
+    private int UmidadeSolo;
     private int LogArduino;
     private int StatusConexao;
+    private int statusBombaAgua;
+    private int statusBombaFert;
+
+    
 
     public ConsomeArduinoDAO() throws IOException {
-        this.IniciaAlimentacao();
+        this.leJson();
     }
-
-    private void IniciaAlimentacao() throws MalformedURLException, IOException {
+    public void leJson() throws MalformedURLException, IOException{
+        try{
+        JsonParser parser = new JsonParser();
+        URL endereco = new URL(Endereco+":85/Higrosoft/lista");
+        URLConnection conn = endereco.openConnection();
+        BufferedReader leitor = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String valorEntrada;
+        while((valorEntrada = leitor.readLine()) != null){            
+            JsonObject json = (JsonObject) parser.parse(valorEntrada);
+            setTemperatura(json.get("Temperatura").getAsInt());
+            setUmidadeAmbiente(json.get("UmidadeDoAr").getAsInt());
+            setUmidadeSolo(json.get("UmidadeDoSolo").getAsInt());
+            setLogArduino(json.get("Logs").getAsInt());
+            setStatusBombaAgua(json.get("StatusAgua").getAsInt());
+            setStatusBombaFert(json.get("StatusAdubo").getAsInt());
+            setStatus(1);
+        }
+        }catch(MalformedURLException e){
+            setStatus(2);
+        }catch(IOException e){
+            setStatus(2);
+        }
+    }
+    
+    
+    
+    
+    
+    
+    //METODO ABAIXO LÊ XML
+    /**private void IniciaAlimentacao() throws MalformedURLException, IOException {
         try {
             URL endereco = new URL(this.Endereco + "Sensores");
             URLConnection conn = endereco.openConnection();
@@ -59,12 +92,13 @@ public class ConsomeArduinoDAO {
         }
 
     }
-
+    **/
+    
     public double getTemperatura() {
         return Temperatura;
     }
 
-    private void setTemperatura(double Temperatura) {
+    private void setTemperatura(int Temperatura) {
         this.Temperatura = Temperatura;
     }
 
@@ -72,7 +106,7 @@ public class ConsomeArduinoDAO {
         return UmidadeAmbiente;
     }
 
-    private void setUmidadeAmbiente(double UmidadeAmbiente) {
+    private void setUmidadeAmbiente(int UmidadeAmbiente) {
         this.UmidadeAmbiente = UmidadeAmbiente;
     }
 
@@ -80,7 +114,7 @@ public class ConsomeArduinoDAO {
         return UmidadeSolo;
     }
 
-    private void setUmidadeSolo(double UmidadeSolo) {
+    private void setUmidadeSolo(int UmidadeSolo) {
         this.UmidadeSolo = UmidadeSolo;
         if(this.UmidadeSolo > 100){
             this.UmidadeSolo = 100;
@@ -105,6 +139,21 @@ public class ConsomeArduinoDAO {
     public int getStatus() {
         return this.StatusConexao;
         
+    }
+    public int getStatusBombaFert() {
+        return statusBombaFert;
+    }
+
+    public void setStatusBombaFert(int statusBombaFert) {
+        this.statusBombaFert = statusBombaFert;
+    }
+
+    public int getStatusBombaAgua() {
+        return statusBombaAgua;
+    }
+
+    public void setStatusBombaAgua(int statusBombas) {
+        this.statusBombaAgua = statusBombas;
     }
     
 }

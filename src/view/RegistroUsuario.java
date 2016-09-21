@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class RegistroUsuario extends javax.swing.JFrame {
 
-    Principal ViewPrincipal = new Principal();
+    
     public RegistroUsuario() {
         initComponents();
     }
@@ -50,6 +50,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel2.setText("Senha:");
 
+        BtnRegistrar.setBackground(new java.awt.Color(255, 255, 255));
         BtnRegistrar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnRegistrar.setText("Registrar");
         BtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -58,6 +59,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
             }
         });
 
+        BtnCancelar.setBackground(new java.awt.Color(255, 255, 255));
         BtnCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         BtnCancelar.setText("Cancelar");
         BtnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -143,8 +145,9 @@ public class RegistroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-        new Principal().setEnabled(true);
-        this.dispose();
+            new Principal().setEnabled(true);
+            this.dispose();
+        
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
     /**
@@ -182,7 +185,7 @@ public class RegistroUsuario extends javax.swing.JFrame {
         });
     }
     public void VerificaCampos() throws SQLException{
-        if((TxtNovoEmail.getText().isEmpty()) && (TxtNovaSenha.getText().isEmpty())){
+        if((TxtNovoEmail.getText().isEmpty()) || (TxtNovaSenha.getText().isEmpty())){
             JOptionPane.showMessageDialog(null,"Por favor preencha todos os campos", "Erro", JOptionPane.ERROR_MESSAGE);
         }else {
             String emailPattern = "\\b(^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([A-Za-z0-9-])+(\\.[A-Za-z0-9-]+)*((\\.[A-Za-z0-9]{2,})|(\\.[A-Za-z0-9]{2,}\\.[A-Za-z0-9]{2,}))$)\\b";
@@ -194,9 +197,9 @@ public class RegistroUsuario extends javax.swing.JFrame {
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Por favor, insira seu email corretamente!");
-            }          
+            }
         }
-    }    
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

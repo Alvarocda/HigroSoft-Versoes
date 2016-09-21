@@ -11,12 +11,11 @@ import java.net.URLConnection;
 public class ControleIrrigacao {
 
     private String Endereco = "http://192.168.0.100/";
-    public void AtivaDispersao(String TipoDispersao, String AguaOuFertilizante) throws MalformedURLException, IOException{
-        URL endereco = new URL(this.Endereco +  TipoDispersao+AguaOuFertilizante);
+    public void AtivaDispersao(String TipoDispersao, String OnOuOff) throws MalformedURLException, IOException{
+        URL endereco = new URL(this.Endereco +  TipoDispersao+OnOuOff);
             URLConnection conn = endereco.openConnection();
             try (BufferedReader xml = new BufferedReader(new InputStreamReader(
                     conn.getInputStream()))){                
-            }
-        
+            }        
     }
 }

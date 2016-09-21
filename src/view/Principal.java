@@ -5,20 +5,32 @@
  */
 package view;
 
+import Controller.EnviaEmail;
+import Controller.VerificaDataAtual;
 import DAO.ConsomeArduinoDAO;
+import DAO.ControleIrrigacao;
+import DAO.CulturaDAO;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
 
     ConfirmaSaida Saida = new ConfirmaSaida();
-    
-    public Principal() {
-        new updateView().start();        
-        initComponents();        
+    private static String CulturaAtiva;
+    private static String CulturaAtivaInicial;
+    private static int FrequenciaAgua,FrequenciaFertilizante;
+    private int emAndamento;
+
+    public Principal(){
+        initComponents();
+        setIcon();
+        new updateView().start();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -52,6 +64,13 @@ public class Principal extends javax.swing.JFrame {
         LabelStatus = new javax.swing.JLabel();
         BtnControleManual = new javax.swing.JButton();
         BtnAbreTelaCulturas = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        LabelCulturaAtiva = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        LabelBmbAgua = new javax.swing.JLabel();
+        LabelBmbFert = new javax.swing.JLabel();
 
         setTitle("HigroSoft");
         setBackground(new java.awt.Color(255, 255, 255));
@@ -83,7 +102,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel4.setText("Temperatura");
 
         BarraTemperatura.setBackground(new java.awt.Color(255, 255, 255));
-        BarraTemperatura.setForeground(Color.RED);
+        BarraTemperatura.setForeground(new java.awt.Color(255, 65, 17));
         BarraTemperatura.setOrientation(1);
         BarraTemperatura.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         BarraTemperatura.setEnabled(false);
@@ -135,7 +154,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setText("Umidade Ambiente");
 
         BarraUmidade.setBackground(new java.awt.Color(255, 255, 255));
-        BarraUmidade.setForeground(new java.awt.Color(51, 102, 255));
+        BarraUmidade.setForeground(new java.awt.Color(50, 179, 193));
         BarraUmidade.setOrientation(1);
         BarraUmidade.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         BarraUmidade.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -229,7 +248,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel8.setText("Umidade do Solo");
 
         BarraUmidadeSolo.setBackground(new java.awt.Color(255, 255, 255));
-        BarraUmidadeSolo.setForeground(new java.awt.Color(116, 71, 29));
+        BarraUmidadeSolo.setForeground(new java.awt.Color(139, 88, 42));
         BarraUmidadeSolo.setOrientation(1);
         BarraUmidadeSolo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         BarraUmidadeSolo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -307,37 +326,92 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel7.setText("Cultura ativa:");
+
+        LabelCulturaAtiva.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        LabelCulturaAtiva.setText("Nenhuma");
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Status das bombas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 14))); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel10.setText("Bomba Fertilizante:");
+
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel9.setText("Bomba Agua:");
+
+        LabelBmbAgua.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        LabelBmbFert.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LabelBmbAgua, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LabelBmbFert, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(LabelBmbAgua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(LabelBmbFert, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 11, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelCulturaAtiva))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(LabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(BtnAddUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BtnAbreTelaCulturas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnControleManual)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtnSobre)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnSair))
+                        .addComponent(BtnAbreTelaCulturas))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(113, Short.MAX_VALUE))
+                        .addGap(96, 96, 96)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(BtnControleManual)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnSobre)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnSair))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,11 +428,20 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(LabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(8, 8, 8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(LabelCulturaAtiva))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -369,7 +452,7 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         bindingGroup.bind();
@@ -403,11 +486,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnControleManualActionPerformed
 
     private void BtnAbreTelaCulturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAbreTelaCulturasActionPerformed
-        
-        new TelaCulturas().setVisible(true);
+        try {
+            new TelaCulturas().AtualizaTabela();
+            new TelaCulturas().setVisible(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnAbreTelaCulturasActionPerformed
 
-   
     public static void main(String args[]) {
 
         /* Set the Nimbus look and feel */
@@ -435,11 +522,15 @@ public class Principal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Principal principal = new Principal();
-                principal.setVisible(true);
+            public void run() {                
+                    //Principal principal = new Principal();
+                    new Principal().setVisible(true);
+                
             }
         });
+    }
+    public void AtivarThreadDaDispersaoPorAgendamento(){
+        
     }
 
 
@@ -452,6 +543,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton BtnControleManual;
     private javax.swing.JButton BtnSair;
     private javax.swing.JButton BtnSobre;
+    private javax.swing.JLabel LabelBmbAgua;
+    private javax.swing.JLabel LabelBmbFert;
+    private javax.swing.JLabel LabelCulturaAtiva;
     private javax.swing.JLabel LabelStatus;
     private javax.swing.JLabel LabelTemp;
     private javax.swing.JLabel LabelTemperatura;
@@ -460,58 +554,230 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel LabelUmidadeAmbiente;
     private javax.swing.JLabel LabelUmidadeSolo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
     public class updateView extends Thread {
+
+        int UmidadeMinima;
+        int tentativas = 1;
+        @Override
         public void run() {
             while (true) {
                 try {
                     Thread.sleep(1000);
                     ConsomeArduinoDAO Consome = new ConsomeArduinoDAO();
+                    
                     BarraUmidadeSolo.setValue((int) Math.round(Consome.getUmidadeSolo()));
                     BarraTemperatura.setValue((int) Math.round(Consome.getTemperatura()));
                     BarraUmidade.setValue((int) Math.round(Consome.getUmidadeAmbiente()));
                     LabelTemperatura.setText(Consome.getTemperatura() + "ºC");
                     LabelUmidadeAmbiente.setText(Consome.getUmidadeAmbiente() + "%");
                     LabelUmidadeSolo.setText(Consome.getUmidadeSolo() + "%");
-                    if(Consome.getStatus() == 1){
+                    if (Consome.getStatus() == 1) {
                         BtnControleManual.setEnabled(true);
                         LabelStatus.setForeground(Color.GREEN);
                         LabelStatus.setText("OK");
-                        
-                    }else if(Consome.getStatus() == 2){
+
+                    } else if (Consome.getStatus() == 2) {
                         BtnControleManual.setEnabled(false);
                         LabelStatus.setForeground(Color.red);
                         LabelStatus.setText("Erro ao comunicar-se com o Arduino");
-                        
+
                     }
-                    if(Consome.getLogArduino() == 1){
+                    if (Consome.getLogArduino() == 1) {
                         BtnControleManual.setEnabled(false);
                         LabelStatus.setForeground(Color.red);
                         LabelStatus.setText("Erro no sensor de umidade/temperatura");
-                    }else if(Consome.getLogArduino() == 2){
+                    } else if (Consome.getLogArduino() == 2) {
                         BtnControleManual.setEnabled(false);
                         LabelStatus.setForeground(Color.red);
                         LabelStatus.setText("Erro no sensor de umidade do solo");
                     }
+                    if(Consome.getStatusBombaAgua() == 1){
+                        LabelBmbAgua.setForeground(Color.GREEN);
+                        LabelBmbAgua.setText("LIGADA");
+                    }else {
+                        LabelBmbAgua.setForeground(Color.red);
+                        LabelBmbAgua.setText("DESLIGADA");
+                    }
+                    if(Consome.getStatusBombaFert() == 1){
+                        LabelBmbFert.setForeground(Color.GREEN);
+                        LabelBmbFert.setText("LIGADA");
+                    }else{
+                        LabelBmbFert.setForeground(Color.red);
+                        LabelBmbFert.setText("DESLIGADA");
+                    }
+                    if(Consome.getStatus() == 2 || Consome.getLogArduino() == 1 || Consome.getLogArduino() == 2){
+                        if(tentativas == 1){
+                            new EnviaEmail().EnviaEmail();
+                            tentativas = tentativas + 1;
+                        }else{
+                            tentativas = tentativas + 1;
+                        }                        
+                    }else{
+                        tentativas = 1;
+                    }
+                    if(tentativas  == 1728){
+                        new EnviaEmail().EnviaEmail();
+                        tentativas = 2;
+                    }
+                    LabelCulturaAtiva.setText(this.getLabelCulturaAtiva());
+                    //if(Consome.getUmidadeSolo() <)
                 } catch (IOException ex) {
                     System.out.println(ex.getMessage());
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                //System.out.println(tentativas);
             }
 
         }
+
+        public void setLabelCulturaAtiva(String CultAtiva) {
+            CulturaAtiva = CultAtiva;
+        }
+
+        public String getLabelCulturaAtiva() {
+            return CulturaAtiva;
+        }
     };
+    
+    public class VerificaSeEPrecisoAtivarAIrrigacaoPorAgendamento extends Thread {
+        private int DiaAtual,MesAtual,HoraAtual;
+        private int DiaInicial,MesInicial,DiaFinal,MesFinal;
+        private int proxIrrigacaoAgua,proxIrrigacaoFert;
+        
+        CulturaDAO retornaInformacaoSobreAgendamento = new CulturaDAO();
+        VerificaDataAtual VerificaData = new VerificaDataAtual();
+        ControleIrrigacao LigaDesligaBombas = new ControleIrrigacao();
+        public void run() {
+            VerificaData.PegaDataAtual();
+            FrequenciaAgua = getFrequenciaAgua();
+            FrequenciaFertilizante = getFrequenciaFertilizante();
+            proxIrrigacaoAgua = VerificaData.getHoraAtual() + FrequenciaAgua;
+            proxIrrigacaoFert = VerificaData.getHoraAtual() + FrequenciaFertilizante;
+            DiaInicial  = getDiaInicial();
+            MesInicial  = getMesInicial();
+            DiaFinal    = getDiaFinal();
+            MesFinal    = getMesFinal();
+            System.out.println("Frequencia agua"+FrequenciaAgua+"\nFrequencia Fert"+FrequenciaFertilizante);
+            while (true) {
+                try {
+                    System.out.println("Thread Startou");
+                    Thread.sleep(60000);
+                    VerificaData.PegaDataAtual();
+                    System.out.println("Esperou 1 minuto e pegou a data");
+                    DiaAtual    = VerificaData.getDiaAtual();
+                    System.out.println("Pegou o dia atual "+DiaAtual);
+                    MesAtual    = VerificaData.getMesAtual();
+                    System.out.println("Pegou o mês atual "+MesAtual);
+                    HoraAtual   = VerificaData.getHoraAtual();
+                    System.out.println("Pegou a hora atual "+HoraAtual);
+                    System.out.println("Dia Atual.:"+DiaAtual+"\nMes Atual.:"+MesAtual+"\nHora Atual"+HoraAtual+"\nData Inicial da irrigação.:"+DiaInicial+"/"+MesInicial+"\nData final.:"+DiaFinal+"/"+MesFinal);
+                    System.out.println("Prox Irrigação de agua "+proxIrrigacaoAgua);
+                    System.out.println("Prox Irrigação de Fertilizante "+proxIrrigacaoFert);
+                    if(DiaInicial >= DiaAtual && MesInicial >= MesAtual){
+                        if(proxIrrigacaoAgua == HoraAtual){
+                            proxIrrigacaoAgua = proxIrrigacaoAgua + FrequenciaAgua;
+                            LigaDesligaBombas.AtivaDispersao("Agua", "/On");
+                            System.out.println("Ativou Agua");
+                            Thread.sleep(60000);
+                            LigaDesligaBombas.AtivaDispersao("Agua", "/Off");
+                            System.out.println("Desativou Agua");
+                            
+                            if(proxIrrigacaoAgua > 24){
+                                proxIrrigacaoAgua = proxIrrigacaoAgua - 24;
+                            }
+                        }else if(proxIrrigacaoFert == HoraAtual){
+                            proxIrrigacaoFert = proxIrrigacaoFert + FrequenciaFertilizante;
+                            LigaDesligaBombas.AtivaDispersao("Adubo", "/On");
+                            System.out.println("Ativou adubo");
+                            Thread.sleep(15000);
+                            LigaDesligaBombas.AtivaDispersao("Adubo", "/Off");
+                            System.out.println("Desativou adubo");
+                            
+                            if(proxIrrigacaoFert > 24){
+                                proxIrrigacaoFert = proxIrrigacaoFert - 24;
+                            }
+                        }                        
+                    }else if(DiaFinal <= DiaAtual && MesFinal <= MesAtual){
+                            Thread.currentThread().interrupt();
+                            JOptionPane.showMessageDialog(null, "Agendamento terminou", "Agendamento Concluido",JOptionPane.INFORMATION_MESSAGE);
+                            
+                    }
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+        public int getDiaInicial() {
+            return DiaInicial;
+        }
+
+        public void setDiaInicial(int DiaInicial) {
+            this.DiaInicial = DiaInicial;
+        }
+
+        public int getMesInicial() {
+            return MesInicial;
+        }
+
+        public void setMesInicial(int MesInicial) {
+            this.MesInicial = MesInicial;
+        }
+
+        public int getDiaFinal() {
+            return DiaFinal;
+        }
+
+        public void setDiaFinal(int DiaFinal) {
+            this.DiaFinal = DiaFinal;
+        }
+
+        public int getMesFinal() {
+            return MesFinal;
+        }
+
+        public void setMesFinal(int MesFinal) {
+            this.MesFinal = MesFinal;
+        }
+
+        public int getFrequenciaAgua() {
+            return FrequenciaAgua;
+        }
+
+        public void setFrequenciaAgua(int FreqAgua) {
+            FrequenciaAgua = FreqAgua;
+        }
+
+        public int getFrequenciaFertilizante() {
+            return FrequenciaFertilizante;
+        }
+
+        public void setFrequenciaFertilizante(int FrequenciaFert) {
+            FrequenciaFertilizante = FrequenciaFert;
+        }
+    };
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/view/img/icon2.png")));
+    }
+
 }
